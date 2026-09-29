@@ -21,6 +21,7 @@ export default function Header() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const exploreRef = useRef<HTMLDivElement>(null);
 
@@ -32,6 +33,32 @@ export default function Header() {
     setIsExploreOpen(false);
   };
 
+  /*
+   * Switch the navbar to glass mode after
+   * scrolling through roughly the middle
+   * of the Hero section.
+   */
+  useEffect(() => {
+    const handleScroll = () => {
+      const threshold = window.innerHeight * 0.5;
+
+      setIsScrolled(window.scrollY > threshold);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  /*
+   * Close Explore dropdown when clicking outside.
+   */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -142,16 +169,29 @@ export default function Header() {
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5 lg:px-6">
       <div className="mx-auto max-w-7xl">
         <div
-          className="
+          className={`
             relative rounded-2xl
-            border border-border
-            bg-surface-elevated
+            border
             px-4
-            shadow-[var(--shadow-md)]
-            backdrop-blur-xl
-            transition-all duration-300
+            transition-all duration-500 ease-out
             sm:px-5 lg:px-6
-          "
+            ${
+              isScrolled
+                ? `
+                  border-white/20
+                  bg-white/10
+                  shadow-[var(--shadow-lg)]
+                  backdrop-blur-xl
+                  dark:border-white/15
+                  dark:bg-black/10
+                `
+                : `
+                  border-border
+                  bg-surface-elevated
+                  shadow-[var(--shadow-md)]
+                `
+            }
+          `}
         >
           <div className="flex h-[68px] items-center justify-between">
             {/* =====================================================
@@ -161,33 +201,61 @@ export default function Header() {
             <Link
               href={`/${locale}`}
               onClick={closeMenu}
-              className="group flex items-center gap-2.5"
+              className="group flex items-center gap-3"
             >
-              {/* Compact logo mark */}
-              <span className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-lg">
+              {/* Logo Mark */}
+              <span className="relative flex h-14 w-14 shrink-0 items-center justify-center">
                 <Image
-                  src="/images/logo.jpg"
+                  src="/images/logo.png"
                   alt=""
-                  width={60}
-                  height={60}
+                  width={76}
+                  height={76}
                   priority
-                  className="absolute left-1/2 top-0 h-[60px] w-[60px] max-w-none -translate-x-1/2 object-cover"
+                  className="h-14 w-14 object-contain transition-transform duration-300 group-hover:scale-[1.03]"
                 />
               </span>
 
-              {/* Brand text */}
+              {/* Brand */}
               <span className="flex flex-col justify-center leading-none">
-                <span className="text-[15px] font-extrabold tracking-[0.12em] text-foreground">
+                <span
+                  className={`
+                    text-[19px]
+                    font-extrabold
+                    tracking-[0.12em]
+                    transition-colors duration-300
+                    ${
+                      isScrolled
+                        ? "text-white dark:text-white"
+                        : "text-foreground"
+                    }
+                  `}
+                >
                   ARTOVA
                 </span>
 
-                <span className="mt-0.5 text-[9px] font-medium tracking-[0.32em] text-accent">
+                <span className="mt-0.5 text-[11px] font-medium tracking-[0.32em] text-accent">
                   RESEARCH
                 </span>
 
-                <span className="mt-1 text-[5px] font-medium tracking-[0.18em] text-muted">
-                  IDEAS <span className="text-accent">|</span> INSIGHTS{" "}
-                  <span className="text-accent">|</span> IMPACT
+                <span
+                  className={`
+                    mt-1
+                    text-[6.5px]
+                    font-medium
+                    tracking-[0.18em]
+                    transition-colors duration-300
+                    ${
+                      isScrolled
+                        ? "text-white/65"
+                        : "text-muted"
+                    }
+                  `}
+                >
+                  IDEAS{" "}
+                  <span className="text-accent">|</span>{" "}
+                  INSIGHTS{" "}
+                  <span className="text-accent">|</span>{" "}
+                  IMPACT
                 </span>
               </span>
             </Link>
@@ -198,8 +266,7 @@ export default function Header() {
 
             <nav className="hidden items-center gap-1 md:flex">
               {navigation.map((item) => {
-                const href = `/${locale}${item.path ? `/${item.path}` : ""
-                  }`;
+                const href = `/${locale}${item.path ? `/${item.path}` : ""}`;
 
                 const active = isActive(item.path);
 
@@ -212,9 +279,12 @@ export default function Header() {
                       px-4 py-2.5
                       text-sm font-semibold
                       transition-all duration-300
-                      ${active
-                        ? "text-accent"
-                        : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                      ${
+                        active
+                          ? "text-accent"
+                          : isScrolled
+                            ? "text-white/90 hover:bg-white/10 hover:text-white dark:text-white/90"
+                            : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
                       }
                     `}
                   >
@@ -249,9 +319,12 @@ export default function Header() {
                     rounded-xl px-4 py-2.5
                     text-sm font-semibold
                     transition-all duration-300
-                    ${isExploreOpen
-                      ? "bg-accent-soft text-accent"
-                      : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                    ${
+                      isExploreOpen
+                        ? "bg-accent-soft text-accent"
+                        : isScrolled
+                          ? "text-white/90 hover:bg-white/10 hover:text-white"
+                          : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
                     }
                   `}
                 >
@@ -286,9 +359,10 @@ export default function Header() {
                     w-[310px]
                     origin-top-right
                     transition-all duration-200
-                    ${isExploreOpen
-                      ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
-                      : "pointer-events-none -translate-y-2 scale-95 opacity-0"
+                    ${
+                      isExploreOpen
+                        ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
+                        : "pointer-events-none -translate-y-2 scale-95 opacity-0"
                     }
                   `}
                 >
@@ -369,7 +443,18 @@ export default function Header() {
                   CONTROLS
                   ================================================= */}
 
-              <div className="ml-3 flex items-center gap-2 border-l border-border pl-3">
+              <div
+                className={`
+                  ml-3 flex items-center gap-2
+                  border-l pl-3
+                  transition-colors duration-300
+                  ${
+                    isScrolled
+                      ? "border-white/20"
+                      : "border-border"
+                  }
+                `}
+              >
                 <LanguageSwitcher />
 
                 <ThemeToggle />
@@ -441,17 +526,18 @@ export default function Header() {
                     : "Open navigation menu"
                 }
                 aria-expanded={isMenuOpen}
-                className="
+                className={`
                   group flex h-10 w-10
                   items-center justify-center
                   rounded-xl
-                  border border-border
-                  text-foreground
+                  border
                   transition-all duration-300
-                  hover:border-accent
-                  hover:bg-accent-soft
-                  hover:text-accent
-                "
+                  ${
+                    isScrolled
+                      ? "border-white/20 text-white hover:border-accent hover:bg-white/10 hover:text-accent"
+                      : "border-border text-foreground hover:border-accent hover:bg-accent-soft hover:text-accent"
+                  }
+                `}
               >
                 <div className="relative h-4 w-5">
                   <span
@@ -480,9 +566,10 @@ export default function Header() {
                       h-0.5 w-5 rounded-full
                       bg-current
                       transition-all duration-300
-                      ${isMenuOpen
-                        ? "top-2 -rotate-45"
-                        : ""
+                      ${
+                        isMenuOpen
+                          ? "top-2 -rotate-45"
+                          : ""
                       }
                     `}
                   />
@@ -500,16 +587,16 @@ export default function Header() {
               overflow-hidden
               transition-all duration-300
               md:hidden
-              ${isMenuOpen
-                ? "max-h-[600px] border-t border-border opacity-100"
-                : "max-h-0 opacity-0"
+              ${
+                isMenuOpen
+                  ? "max-h-[600px] border-t border-border opacity-100"
+                  : "max-h-0 opacity-0"
               }
             `}
           >
             <nav className="space-y-1 py-4">
               {navigation.map((item) => {
-                const href = `/${locale}${item.path ? `/${item.path}` : ""
-                  }`;
+                const href = `/${locale}${item.path ? `/${item.path}` : ""}`;
 
                 const active = isActive(item.path);
 
@@ -523,9 +610,10 @@ export default function Header() {
                       rounded-xl px-4 py-3.5
                       text-sm font-semibold
                       transition-all
-                      ${active
-                        ? "bg-accent-soft text-accent"
-                        : "text-foreground/80 hover:bg-foreground/5"
+                      ${
+                        active
+                          ? "bg-accent-soft text-accent"
+                          : "text-foreground/80 hover:bg-foreground/5"
                       }
                     `}
                   >
@@ -538,9 +626,7 @@ export default function Header() {
                 );
               })}
 
-              {/* =================================================
-                  MOBILE EXPLORE
-                  ================================================= */}
+              {/* MOBILE EXPLORE */}
 
               <button
                 type="button"
@@ -605,9 +691,7 @@ export default function Header() {
                 </div>
               )}
 
-              {/* =================================================
-                  MOBILE CONTACT
-                  ================================================= */}
+              {/* MOBILE CONTACT */}
 
               <Link
                 href={`/${locale}/contact`}
