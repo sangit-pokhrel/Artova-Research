@@ -4,6 +4,7 @@ type SectionProps = {
   children: ReactNode;
   variant?: "default" | "soft" | "primary";
   decoration?: "none" | "grid" | "glow";
+  spacing?: "normal" | "compact";
   className?: string;
 };
 
@@ -11,6 +12,7 @@ export default function Section({
   children,
   variant = "default",
   decoration = "none",
+  spacing = "normal",
   className = "",
 }: SectionProps) {
   const variants = {
@@ -19,9 +21,14 @@ export default function Section({
     primary: "bg-primary text-white",
   };
 
+  const spacingStyles = {
+    normal: "py-16",
+    compact: "py-12",
+  };
+
   return (
     <section
-      className={`relative isolate overflow-hidden transition-colors duration-300 ${variants[variant]} ${className}`}
+      className={`relative isolate overflow-hidden transition-colors duration-300 ${variants[variant]} ${spacingStyles[spacing]} ${className}`}
     >
       {/* Grid decoration */}
       {decoration === "grid" && (

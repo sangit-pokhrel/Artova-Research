@@ -3,10 +3,21 @@
 /* =========================================================
    ARTOVA RESEARCH
    GLOBAL DESIGN SYSTEM
-   Logo-inspired: White + Purple + Violet + Lavender
+
+   Brand:
+   White + Purple + Violet + Electric Magenta
+
+   Palette:
+   #5A189A  Deep Purple
+   #7B2CBF  Brand Purple
+   #822FAF  Secondary Purple
+   #8B2FC9  Interactive Purple
+   #B100E8  Bright Purple
+   #D100D1  Electric Magenta
    ========================================================= */
 
 @theme inline {
+  /* Core */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -16,13 +27,24 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
 
+  /* Purple palette */
+  --color-purple-deep: var(--purple-deep);
+  --color-purple-brand: var(--purple-brand);
+  --color-purple-secondary: var(--purple-secondary);
+  --color-purple-interactive: var(--purple-interactive);
+  --color-purple-bright: var(--purple-bright);
+  --color-purple-electric: var(--purple-electric);
+
+  /* Surfaces */
   --color-surface: var(--surface);
   --color-surface-soft: var(--surface-soft);
   --color-surface-elevated: var(--surface-elevated);
 
+  /* Text */
   --color-muted: var(--text-muted);
   --color-soft: var(--text-soft);
 
+  /* Borders */
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
 }
@@ -32,17 +54,23 @@
    ========================================================= */
 
 :root {
-  /* Main colors */
   --background: #ffffff;
   --foreground: #1b0b2e;
 
-  /* Purple brand colors */
-  --primary: #4b0fa8;
-  --primary-soft: #6a18d9;
+  /* Purple palette */
+  --purple-deep: #5a189a;
+  --purple-brand: #7b2cbf;
+  --purple-secondary: #822faf;
+  --purple-interactive: #8b2fc9;
+  --purple-bright: #b100e8;
+  --purple-electric: #d100d1;
 
-  /* Bright accent */
-  --accent: #8b2cf5;
-  --accent-hover: #7a22e8;
+  /* Semantic */
+  --primary: #5a189a;
+  --primary-soft: #7b2cbf;
+
+  --accent: #b100e8;
+  --accent-hover: #d100d1;
 
   /* Surfaces */
   --surface: #faf7ff;
@@ -57,40 +85,76 @@
   --border: #e8ddf5;
   --border-strong: #d8c5ed;
 
-  /* Accent backgrounds */
-  --accent-soft: rgba(139, 44, 245, 0.08);
-  --accent-soft-strong: rgba(139, 44, 245, 0.14);
+  /* Accent surfaces */
+  --accent-soft: rgba(177, 0, 232, 0.08);
+  --accent-soft-strong: rgba(177, 0, 232, 0.15);
 
-  /* Overlays */
-  --overlay-light: rgba(255, 255, 255, 0.8);
-  --overlay-dark: rgba(75, 15, 168, 0.08);
+  /* Gradients */
+  --gradient-primary: linear-gradient(
+    135deg,
+    #7b2cbf 0%,
+    #8b2fc9 50%,
+    #b100e8 100%
+  );
+
+  --gradient-primary-hover: linear-gradient(
+    135deg,
+    #8b2fc9 0%,
+    #b100e8 50%,
+    #d100d1 100%
+  );
+
+  --gradient-purple: linear-gradient(
+    135deg,
+    #5a189a 0%,
+    #7b2cbf 45%,
+    #b100e8 100%
+  );
+
+  --gradient-electric: linear-gradient(
+    135deg,
+    #8b2fc9 0%,
+    #b100e8 45%,
+    #d100d1 100%
+  );
 
   /* Shadows */
-  --shadow-sm: 0 4px 16px rgba(75, 15, 168, 0.06);
-  --shadow-md: 0 12px 30px rgba(75, 15, 168, 0.1);
-  --shadow-lg: 0 20px 50px rgba(75, 15, 168, 0.14);
+  --shadow-sm: 0 4px 16px rgba(90, 24, 154, 0.08);
+  --shadow-md: 0 12px 30px rgba(90, 24, 154, 0.12);
+  --shadow-lg: 0 20px 50px rgba(90, 24, 154, 0.16);
+
+  /* Glows */
+  --glow-purple: 0 10px 30px rgba(139, 47, 201, 0.28);
+  --glow-bright: 0 12px 35px rgba(177, 0, 232, 0.32);
+  --glow-electric: 0 14px 40px rgba(209, 0, 209, 0.38);
 
   /* Accessibility */
-  --focus-ring: #8b2cf5;
-  --selection-background: rgba(139, 44, 245, 0.2);
+  --focus-ring: #b100e8;
+  --selection-background: rgba(177, 0, 232, 0.2);
 }
 
 /* =========================================================
    DARK THEME
-   Logo-inspired dark purple
    ========================================================= */
 
 .dark {
   --background: #09001f;
   --foreground: #ffffff;
 
-  /* Purple brand colors */
-  --primary: #4b0fa8;
-  --primary-soft: #6a18d9;
+  /* Purple palette */
+  --purple-deep: #5a189a;
+  --purple-brand: #7b2cbf;
+  --purple-secondary: #822faf;
+  --purple-interactive: #8b2fc9;
+  --purple-bright: #b100e8;
+  --purple-electric: #d100d1;
 
-  /* Bright accent */
-  --accent: #a855f7;
-  --accent-hover: #c084fc;
+  /* Semantic */
+  --primary: #5a189a;
+  --primary-soft: #7b2cbf;
+
+  --accent: #b100e8;
+  --accent-hover: #d100d1;
 
   /* Surfaces */
   --surface: #10032b;
@@ -105,22 +169,52 @@
   --border: rgba(255, 255, 255, 0.1);
   --border-strong: rgba(255, 255, 255, 0.17);
 
-  /* Accent backgrounds */
-  --accent-soft: rgba(168, 85, 247, 0.14);
-  --accent-soft-strong: rgba(168, 85, 247, 0.2);
+  /* Accent surfaces */
+  --accent-soft: rgba(177, 0, 232, 0.14);
+  --accent-soft-strong: rgba(177, 0, 232, 0.22);
 
-  /* Overlays */
-  --overlay-light: rgba(255, 255, 255, 0.06);
-  --overlay-dark: rgba(0, 0, 0, 0.25);
+  /* Gradients */
+  --gradient-primary: linear-gradient(
+    135deg,
+    #7b2cbf 0%,
+    #8b2fc9 50%,
+    #b100e8 100%
+  );
+
+  --gradient-primary-hover: linear-gradient(
+    135deg,
+    #8b2fc9 0%,
+    #b100e8 50%,
+    #d100d1 100%
+  );
+
+  --gradient-purple: linear-gradient(
+    135deg,
+    #5a189a 0%,
+    #7b2cbf 45%,
+    #b100e8 100%
+  );
+
+  --gradient-electric: linear-gradient(
+    135deg,
+    #8b2fc9 0%,
+    #b100e8 45%,
+    #d100d1 100%
+  );
 
   /* Shadows */
   --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.4);
 
+  /* Glows */
+  --glow-purple: 0 10px 30px rgba(139, 47, 201, 0.32);
+  --glow-bright: 0 12px 35px rgba(177, 0, 232, 0.38);
+  --glow-electric: 0 14px 40px rgba(209, 0, 209, 0.45);
+
   /* Accessibility */
-  --focus-ring: #c084fc;
-  --selection-background: rgba(168, 85, 247, 0.25);
+  --focus-ring: #b100e8;
+  --selection-background: rgba(177, 0, 232, 0.25);
 }
 
 /* =========================================================
@@ -209,11 +303,11 @@ a {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+  background: var(--purple-bright);
 }
 
 /* =========================================================
-   THEME UTILITIES
+   THEME TRANSITION
    ========================================================= */
 
 .theme-transition {
@@ -224,6 +318,10 @@ a {
     box-shadow 300ms ease;
 }
 
+/* =========================================================
+   PAGE
+   ========================================================= */
+
 .theme-page {
   background: var(--background);
   color: var(--foreground);
@@ -232,6 +330,10 @@ a {
     background-color 300ms ease,
     color 300ms ease;
 }
+
+/* =========================================================
+   SURFACES
+   ========================================================= */
 
 .theme-surface {
   background: var(--surface);
@@ -261,6 +363,10 @@ a {
     box-shadow 300ms ease;
 }
 
+/* =========================================================
+   TEXT
+   ========================================================= */
+
 .theme-text {
   color: var(--foreground);
 }
@@ -281,6 +387,38 @@ a {
   color: var(--accent);
 }
 
+/* =========================================================
+   PURPLE TEXT
+   ========================================================= */
+
+.theme-purple-deep {
+  color: var(--purple-deep);
+}
+
+.theme-purple-brand {
+  color: var(--purple-brand);
+}
+
+.theme-purple-secondary {
+  color: var(--purple-secondary);
+}
+
+.theme-purple-interactive {
+  color: var(--purple-interactive);
+}
+
+.theme-purple-bright {
+  color: var(--purple-bright);
+}
+
+.theme-purple-electric {
+  color: var(--purple-electric);
+}
+
+/* =========================================================
+   BORDERS
+   ========================================================= */
+
 .theme-border {
   border-color: var(--border);
 }
@@ -288,6 +426,10 @@ a {
 .theme-border-strong {
   border-color: var(--border-strong);
 }
+
+/* =========================================================
+   ACCENT SURFACES
+   ========================================================= */
 
 .theme-accent-surface {
   background: var(--accent-soft);
@@ -303,13 +445,160 @@ a {
 }
 
 /* =========================================================
-   CARDS
+   GRADIENT BACKGROUNDS
+   ========================================================= */
+
+.theme-gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.theme-gradient-primary-hover {
+  background: var(--gradient-primary-hover);
+}
+
+.theme-gradient-purple {
+  background: var(--gradient-purple);
+}
+
+.theme-gradient-electric {
+  background: var(--gradient-electric);
+}
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.theme-button {
+  position: relative;
+  overflow: hidden;
+
+  background: var(--gradient-primary);
+  color: #ffffff;
+
+  box-shadow: var(--glow-bright);
+
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    background 300ms ease;
+}
+
+.theme-button:hover {
+  background: var(--gradient-primary-hover);
+
+  box-shadow: var(--glow-electric);
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   GLOW
+   ========================================================= */
+
+.theme-glow-purple {
+  box-shadow: var(--glow-purple);
+}
+
+.theme-glow-bright {
+  box-shadow: var(--glow-bright);
+}
+
+.theme-glow-electric {
+  box-shadow: var(--glow-electric);
+}
+
+/* =========================================================
+   ICONS
+   ========================================================= */
+
+.theme-icon {
+  color: var(--purple-bright);
+
+  filter:
+    drop-shadow(
+      0 0 8px rgba(177, 0, 232, 0.28)
+    );
+
+  transition:
+    color 300ms ease,
+    transform 300ms ease,
+    filter 300ms ease;
+}
+
+.theme-icon:hover {
+  color: var(--purple-electric);
+
+  transform: translateY(-1px) scale(1.04);
+
+  filter:
+    drop-shadow(
+      0 0 8px rgba(177, 0, 232, 0.45)
+    )
+    drop-shadow(
+      0 0 18px rgba(209, 0, 209, 0.3)
+    );
+}
+
+/* =========================================================
+   ICON CONTAINER
+   ========================================================= */
+
+.theme-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(177, 0, 232, 0.45);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139, 47, 201, 0.1),
+      rgba(177, 0, 232, 0.08)
+    );
+
+  color: var(--purple-bright);
+
+  box-shadow:
+    0 0 18px rgba(177, 0, 232, 0.18);
+
+  transition:
+    background 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease,
+    box-shadow 300ms ease,
+    transform 300ms ease;
+}
+
+.theme-icon-container:hover {
+  border-color: var(--purple-electric);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139, 47, 201, 0.18),
+      rgba(209, 0, 209, 0.14)
+    );
+
+  color: var(--purple-electric);
+
+  box-shadow:
+    0 0 25px rgba(177, 0, 232, 0.35),
+    0 0 45px rgba(209, 0, 209, 0.15);
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   CARD
    ========================================================= */
 
 .theme-card {
   background: var(--surface-elevated);
   color: var(--foreground);
+
   border: 1px solid var(--border);
+
   box-shadow: var(--shadow-sm);
 
   transition:
@@ -380,8 +669,15 @@ a {
 
 .theme-grid {
   background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    linear-gradient(
+      var(--border) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--border) 1px,
+      transparent 1px
+    );
 
   background-size: 42px 42px;
 }
