@@ -48,11 +48,13 @@ const content = {
       },
     ],
 
-    blogTitle: "Research Insights",
+    insightsLabel: "RESEARCH INSIGHTS",
+    blogTitle: "Practical research knowledge, coming soon.",
     blogDescription:
       "We are building a collection of articles and practical research insights. More resources will be added here as the platform grows.",
 
-    ctaTitle: "Looking for something specific?",
+    ctaLabel: "NEED SOMETHING SPECIFIC?",
+    ctaTitle: "Looking for a particular resource?",
     ctaDescription:
       "If you cannot find the resource you need, contact us and tell us what you are working on.",
     ctaButton: "Contact Us",
@@ -103,11 +105,13 @@ const content = {
       },
     ],
 
-    blogTitle: "अनुसन्धान सामग्री",
+    insightsLabel: "अनुसन्धान सामग्री",
+    blogTitle: "व्यावहारिक अनुसन्धान सामग्री चाँडै आउँदैछ।",
     blogDescription:
       "हामी व्यावहारिक अनुसन्धान सामग्री तथा लेखहरूको संग्रह तयार गर्दैछौँ। प्लेटफर्म विस्तार हुँदै जाँदा थप स्रोतहरू यहाँ थपिनेछन्।",
 
-    ctaTitle: "तपाईंलाई कुनै विशेष स्रोत चाहिन्छ?",
+    ctaLabel: "तपाईंलाई कुनै विशेष स्रोत चाहिन्छ?",
+    ctaTitle: "तपाईंलाई आवश्यक स्रोत भेटिएन?",
     ctaDescription:
       "तपाईंलाई आवश्यक स्रोत यहाँ भेटिएन भने हामीलाई सम्पर्क गर्नुहोस् र तपाईंले गरिरहेको कामबारे जानकारी दिनुहोस्।",
     ctaButton: "सम्पर्क गर्नुहोस्",
@@ -129,81 +133,160 @@ export default async function ResourcesPage({
 
   return (
     <>
-      <section className="bg-white dark:bg-[#071426]">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+      {/* Hero */}
+      <section className="bg-background text-foreground transition-colors duration-300">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
           <div className="max-w-4xl">
-            <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#D9A900]">
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
               {t.eyebrow}
             </p>
 
-            <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight text-[#0B1F3A] dark:text-white sm:text-6xl">
+            <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
               {t.title}
             </h1>
 
-            <p className="mt-8 max-w-3xl text-xl leading-9 text-[#0B1F3A]/65 dark:text-white/65">
+            <p className="mt-8 max-w-3xl text-lg leading-8 text-muted sm:text-xl">
               {t.intro}
             </p>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#F7F8FA] dark:bg-[#0B1F3A]">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {t.resources.map((resource) => (
+      {/* Resources */}
+      <section className="bg-surface text-foreground transition-colors duration-300">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:py-28 lg:px-8">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {t.resources.map((resource, index) => (
               <article
                 key={resource.number}
-                className="group rounded-2xl border border-[#0B1F3A]/10 bg-white p-8 transition hover:-translate-y-1 hover:border-[#D9A900]/50 dark:border-white/10 dark:bg-[#071426]"
+                className={`
+                  group relative overflow-hidden
+                  rounded-3xl p-8
+                  transition duration-300
+                  hover:-translate-y-1
+                  sm:p-9
+                  ${
+                    index === 0
+                      ? "bg-primary text-white shadow-[var(--shadow-lg)]"
+                      : "theme-card"
+                  }
+                `}
               >
-                <span className="text-sm font-bold text-[#D9A900]">
+                <span
+                  aria-hidden="true"
+                  className={`
+                    absolute -right-3 -top-7
+                    text-[8rem]
+                    font-bold
+                    leading-none
+                    ${
+                      index === 0
+                        ? "text-white/[0.04]"
+                        : "text-foreground/[0.035]"
+                    }
+                  `}
+                >
                   {resource.number}
                 </span>
 
-                <h2 className="mt-5 text-2xl font-semibold text-[#0B1F3A] dark:text-white">
-                  {resource.title}
-                </h2>
+                <div className="relative">
+                  <span className="text-sm font-bold text-accent">
+                    {resource.number}
+                  </span>
 
-                <p className="mt-4 leading-7 text-[#0B1F3A]/60 dark:text-white/60">
-                  {resource.description}
-                </p>
+                  <h2 className="mt-10 text-2xl font-bold leading-tight">
+                    {resource.title}
+                  </h2>
 
-                <span className="mt-6 inline-block text-sm font-semibold text-[#0B1F3A] dark:text-white">
-                  Coming soon →
-                </span>
+                  <p
+                    className={`
+                      mt-4 leading-7
+                      ${index === 0 ? "text-white/60" : "text-muted"}
+                    `}
+                  >
+                    {resource.description}
+                  </p>
+
+                  <div className="mt-7 flex items-center gap-3">
+                    <span className="h-px w-9 bg-accent transition-all duration-300 group-hover:w-16" />
+
+                    <span
+                      className={`
+                        text-xs font-semibold uppercase tracking-wider
+                        ${index === 0 ? "text-white/40" : "theme-soft-text"}
+                      `}
+                    >
+                      Coming soon
+                    </span>
+                  </div>
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white dark:bg-[#071426]">
-        <div className="mx-auto max-w-4xl px-6 py-20 text-center sm:py-24">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#D9A900]">
-            {t.blogTitle}
+      {/* Research Insights */}
+      <section className="bg-background text-foreground transition-colors duration-300">
+        <div className="mx-auto max-w-4xl px-6 py-24 text-center sm:py-28">
+          <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
+            {t.insightsLabel}
           </p>
 
-          <h2 className="mt-5 text-4xl font-bold tracking-tight text-[#0B1F3A] dark:text-white sm:text-5xl">
-            {t.blogDescription}
+          <h2 className="mt-5 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+            {t.blogTitle}
           </h2>
+
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted">
+            {t.blogDescription}
+          </p>
         </div>
       </section>
 
-      <section className="bg-[#0B1F3A] dark:bg-[#D9A900]">
-        <div className="mx-auto max-w-4xl px-6 py-20 text-center sm:py-24">
-          <h2 className="text-4xl font-bold tracking-tight text-white dark:text-[#071426] sm:text-5xl">
-            {t.ctaTitle}
-          </h2>
+      {/* CTA */}
+      <section className="bg-background px-6 pb-24 text-foreground transition-colors duration-300 sm:pb-28 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="relative overflow-hidden rounded-4xl bg-primary px-7 py-16 text-center text-white sm:px-12 sm:py-20 lg:px-20">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent-soft blur-3xl"
+            />
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/70 dark:text-[#071426]/70">
-            {t.ctaDescription}
-          </p>
+            <div className="relative mx-auto max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
+                {t.ctaLabel}
+              </p>
 
-          <Link
-            href={`/${locale}/contact`}
-            className="mt-9 inline-flex rounded-full bg-[#D9A900] px-7 py-3.5 font-semibold text-[#071426] transition hover:bg-[#f0c21a] dark:bg-[#0B1F3A] dark:text-white dark:hover:bg-[#102d54]"
-          >
-            {t.ctaButton}
-          </Link>
+              <h2 className="mt-5 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                {t.ctaTitle}
+              </h2>
+
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/65">
+                {t.ctaDescription}
+              </p>
+
+              <Link
+                href={`/${locale}/contact`}
+                className="
+                  mt-9
+                  inline-flex
+                  items-center
+                  gap-3
+                  rounded-full
+                  bg-accent
+                  px-7 py-3.5
+                  text-sm font-semibold
+                  text-primary
+                  transition-all duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-accent-hover
+                "
+              >
+                {t.ctaButton}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>

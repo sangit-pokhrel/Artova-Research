@@ -1,34 +1,31 @@
-import FinalCTA from "@/components/sections/home/FinalCTA";
 import Hero from "@/components/sections/home/Hero";
-import HowItWorks from "@/components/sections/home/HowItWorks";
 import ServicesPreview from "@/components/sections/home/ServicesPreview";
-import Testimonials from "@/components/sections/home/Testimonials";
 import WhyChooseUs from "@/components/sections/home/WhyChooseUs";
-
-import { notFound } from "next/navigation";
+import HowItWorks from "@/components/sections/home/HowItWorks";
+import Testimonials from "@/components/sections/home/Testimonials";
+import FinalCTA from "@/components/sections/home/FinalCTA";
+import type { Locale } from "@/lib/i18n/config";
 
 export default async function HomePage({
   params,
-}: Readonly<{
-  params: Promise<{ locale: string }>;
-}>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-
-  if (locale !== "en" && locale !== "ne") {
-    notFound();
-  }
 
   return (
     <>
       <Hero locale={locale} />
+
       <ServicesPreview locale={locale} />
-      <WhyChooseUs locale={locale} />
+
       <HowItWorks locale={locale} />
+
+      <WhyChooseUs locale={locale} />
+
       <Testimonials locale={locale} />
+
       <FinalCTA locale={locale} />
-
-
-
     </>
   );
 }
