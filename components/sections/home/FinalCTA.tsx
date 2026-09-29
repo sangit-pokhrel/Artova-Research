@@ -27,27 +27,54 @@ export default function FinalCTA({
   const t = content[locale];
 
   return (
-    <section className="bg-[#0B1F3A] dark:bg-[#D9A900]">
-      <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#D9A900] dark:text-[#0B1F3A]">
-            {t.eyebrow}
-          </p>
+    <section className="bg-background px-6 py-20 text-foreground transition-colors duration-300 sm:py-28 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="relative overflow-hidden rounded-4xl bg-primary px-7 py-16 text-white transition-colors duration-300 sm:px-12 sm:py-20 lg:px-20 lg:py-24">
+          {/* Decorative accent */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent-soft blur-3xl"
+          />
 
-          <h2 className="mt-5 text-4xl font-bold tracking-tight text-white dark:text-[#071426] sm:text-5xl">
-            {t.title}
-          </h2>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 right-0 h-px w-1/2 bg-accent/30"
+          />
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/70 dark:text-[#071426]/70">
-            {t.description}
-          </p>
+          <div className="relative mx-auto max-w-3xl text-center">
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
+              {t.eyebrow}
+            </p>
 
-          <Link
-            href={`/${locale}/contact`}
-            className="mt-9 inline-flex rounded-full bg-[#D9A900] px-7 py-3.5 font-semibold text-[#071426] transition hover:bg-[#f0c21a] dark:bg-[#0B1F3A] dark:text-white dark:hover:bg-[#102d54]"
-          >
-            {t.button}
-          </Link>
+            <h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+              {t.title}
+            </h2>
+
+            <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-white/65">
+              {t.description}
+            </p>
+
+            <Link
+              href={`/${locale}/contact`}
+              className="
+                mt-9
+                inline-flex
+                items-center
+                gap-3
+                rounded-full
+                bg-accent
+                px-7 py-3.5
+                text-sm font-semibold
+                text-primary
+                transition-all duration-300
+                hover:-translate-y-0.5
+                hover:bg-accent-hover
+              "
+            >
+              {t.button}
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

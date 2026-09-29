@@ -1,26 +1,48 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
+  const router = useRouter();
 
-  const segments = pathname.split("/").filter(Boolean);
+  const currentLocale =
+    pathname.split("/")[1] === "ne" ? "ne" : "en";
 
-  const currentLocale = segments[0] === "ne" ? "ne" : "en";
   const nextLocale = currentLocale === "en" ? "ne" : "en";
 
-  segments[0] = nextLocale;
+  const switchLanguage = () => {
+    const segments = pathname.split("/");
 
-  const nextPath = `/${segments.join("/")}`;
+    segments[1] = nextLocale;
+
+    router.push(
+      segments.join("/") || `/${nextLocale}`
+    );
+  };
 
   return (
-    <Link
-      href={nextPath}
-      className="text-sm font-semibold text-[#0B1F3A] transition hover:text-[#D9A900] dark:text-white"
+    <button
+      type="button"
+      onClick={switchLanguage}
+      aria-label={`Switch to ${
+        nextLocale === "en" ? "English" : "Nepali"
+      }`}
+      className="
+        flex h-10 w-10
+        items-center justify-center
+        rounded-full
+        border border-border
+        bg-surface-elevated
+        text-xs font-semibold uppercase
+        text-foreground
+        transition-all duration-300
+        hover:border-accent
+        hover:bg-accent-soft
+        hover:text-accent
+      "
     >
-      {currentLocale === "en" ? "नेपाली" : "EN"}
-    </Link>
+      {nextLocale}
+    </button>
   );
 }

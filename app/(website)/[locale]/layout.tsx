@@ -26,8 +26,12 @@ export default async function LocaleLayout({
   return (
     <>
       <Header />
-      <main>{children}</main>
-      <Footer />
+
+      <main className="bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300">
+        {children}
+      </main>
+
+      <Footer locale={locale} />
     </>
   );
 }

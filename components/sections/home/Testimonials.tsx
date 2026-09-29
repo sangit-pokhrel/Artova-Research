@@ -66,40 +66,109 @@ export default function Testimonials({
   const t = content[locale];
 
   return (
-    <section className="bg-white dark:bg-[#071426]">
-      <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-        <div className="max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#D9A900]">
-            {t.eyebrow}
-          </p>
+    <section className="bg-surface text-foreground transition-colors duration-300">
+      <div className="mx-auto max-w-7xl px-6 py-24 sm:py-28 lg:px-8">
+        {/* Heading */}
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
+              {t.eyebrow}
+            </p>
 
-          <h2 className="mt-4 text-4xl font-bold tracking-tight text-[#0B1F3A] dark:text-white sm:text-5xl">
-            {t.title}
-          </h2>
+            <h2 className="mt-5 max-w-xl text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">
+              {t.title}
+            </h2>
+          </div>
 
-          <p className="mt-6 text-lg leading-8 text-[#0B1F3A]/65 dark:text-white/65">
+          <p className="max-w-2xl text-lg leading-8 text-muted lg:justify-self-end">
             {t.description}
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {t.testimonials.map((testimonial) => (
+        {/* Testimonials */}
+        <div className="mt-16 grid gap-5 lg:grid-cols-3">
+          {t.testimonials.map((testimonial, index) => (
             <article
               key={testimonial.quote}
-              className="rounded-2xl border border-[#0B1F3A]/10 bg-[#F7F8FA] p-8 dark:border-white/10 dark:bg-[#0B1F3A]"
+              className={`
+                group relative flex min-h-[360px]
+                flex-col justify-between
+                overflow-hidden rounded-3xl
+                p-8
+                transition duration-300
+                hover:-translate-y-1
+                sm:p-10
+                ${
+                  index === 0
+                    ? "bg-primary text-white shadow-[var(--shadow-lg)]"
+                    : "theme-card"
+                }
+              `}
             >
-              <div className="text-3xl text-[#D9A900]">“</div>
+              {/* Large quotation mark */}
+              <span
+                aria-hidden="true"
+                className={`
+                  absolute -right-2 -top-8
+                  text-[10rem]
+                  font-serif
+                  leading-none
+                  ${
+                    index === 0
+                      ? "text-white/[0.05]"
+                      : "text-foreground/[0.04]"
+                  }
+                `}
+              >
+                “
+              </span>
 
-              <blockquote className="mt-4 text-lg leading-8 text-[#0B1F3A]/80 dark:text-white/80">
-                {testimonial.quote}
-              </blockquote>
+              <div className="relative">
+                {/* Small accent */}
+                <div className="mb-8 h-1 w-8 rounded-full bg-accent transition-all duration-300 group-hover:w-14" />
 
-              <div className="mt-8 border-t border-[#0B1F3A]/10 pt-5 dark:border-white/10">
-                <p className="font-semibold text-[#0B1F3A] dark:text-white">
+                <blockquote
+                  className={`
+                    text-xl
+                    font-medium
+                    leading-8
+                    ${
+                      index === 0
+                        ? "text-white/90"
+                        : "text-foreground/80"
+                    }
+                  `}
+                >
+                  “{testimonial.quote}”
+                </blockquote>
+              </div>
+
+              {/* Attribution */}
+              <div
+                className={`
+                  relative mt-10
+                  border-t pt-6
+                  ${
+                    index === 0
+                      ? "border-white/10"
+                      : "border-border"
+                  }
+                `}
+              >
+                <p className="font-semibold">
                   {testimonial.name}
                 </p>
 
-                <p className="mt-1 text-sm text-[#0B1F3A]/50 dark:text-white/50">
+                <p
+                  className={`
+                    mt-1 text-sm
+                    ${
+                      index === 0
+                        ? "text-white/45"
+                        : "text-muted"
+                    }
+                  `}
+                >
                   {testimonial.role}
                 </p>
               </div>

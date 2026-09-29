@@ -60,10 +60,11 @@ const content = {
       },
     ],
 
-    ctaTitle: "Need support with your research?",
+    ctaEyebrow: "NEED RESEARCH SUPPORT?",
+    ctaTitle: "Let's discuss what your research needs.",
     ctaDescription:
       "Tell us about your project and requirements, and we can discuss how we can support your research journey.",
-    ctaButton: "Contact Us",
+    ctaButton: "Start a Conversation",
   },
 
   ne: {
@@ -123,10 +124,11 @@ const content = {
       },
     ],
 
-    ctaTitle: "तपाईंको अनुसन्धानमा सहयोग चाहिन्छ?",
+    ctaEyebrow: "अनुसन्धान सहयोग चाहिन्छ?",
+    ctaTitle: "तपाईंको अनुसन्धान आवश्यकताबारे छलफल गरौँ।",
     ctaDescription:
       "आफ्नो परियोजना तथा आवश्यकताबारे हामीलाई जानकारी दिनुहोस् र तपाईंको अनुसन्धान यात्रामा कसरी सहयोग गर्न सक्छौँ भन्नेबारे छलफल गरौँ।",
-    ctaButton: "सम्पर्क गर्नुहोस्",
+    ctaButton: "कुरा सुरु गर्नुहोस्",
   },
 } satisfies Record<Locale, object>;
 
@@ -145,65 +147,174 @@ export default async function ServicesPage({
 
   return (
     <>
-      <section className="bg-white dark:bg-[#071426]">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+      {/* Hero */}
+      <section className="bg-background text-foreground transition-colors duration-300">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
           <div className="max-w-4xl">
-            <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#D9A900]">
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
               {t.eyebrow}
             </p>
 
-            <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight text-[#0B1F3A] dark:text-white sm:text-6xl">
+            <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
               {t.title}
             </h1>
 
-            <p className="mt-8 max-w-3xl text-xl leading-9 text-[#0B1F3A]/65 dark:text-white/65">
+            <p className="mt-8 max-w-3xl text-lg leading-8 text-muted sm:text-xl">
               {t.intro}
             </p>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#F7F8FA] dark:bg-[#0B1F3A]">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-          <div className="grid gap-6 md:grid-cols-2">
-            {t.services.map((service) => (
+      {/* Services */}
+      <section className="bg-surface text-foreground transition-colors duration-300">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:py-28 lg:px-8">
+          <div className="grid gap-5 md:grid-cols-2">
+            {t.services.map((service, index) => (
               <article
                 key={service.number}
-                className="rounded-2xl border border-[#0B1F3A]/10 bg-white p-8 dark:border-white/10 dark:bg-[#071426] sm:p-10"
+                className={`
+                  group relative overflow-hidden
+                  rounded-3xl p-8
+                  transition duration-300
+                  hover:-translate-y-1
+                  sm:p-10
+                  ${
+                    index === 0
+                      ? `
+                        bg-primary
+                        text-white
+                        shadow-[var(--shadow-lg)]
+                      `
+                      : `
+                        theme-card
+                      `
+                  }
+                `}
               >
-                <span className="text-sm font-bold text-[#D9A900]">
+                <span
+                  aria-hidden="true"
+                  className={`
+                    absolute -right-3 -top-8
+                    text-[9rem]
+                    font-bold
+                    leading-none
+                    transition duration-500
+                    group-hover:scale-105
+                    ${
+                      index === 0
+                        ? "text-white/[0.04]"
+                        : "text-foreground/[0.04]"
+                    }
+                  `}
+                >
                   {service.number}
                 </span>
 
-                <h2 className="mt-5 text-2xl font-semibold text-[#0B1F3A] dark:text-white">
-                  {service.title}
-                </h2>
+                <div className="relative">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-bold text-accent">
+                      {service.number}
+                    </span>
 
-                <p className="mt-4 leading-7 text-[#0B1F3A]/60 dark:text-white/60">
-                  {service.description}
-                </p>
+                    <span
+                      className={`
+                        flex h-9 w-9
+                        items-center justify-center
+                        rounded-full
+                        border
+                        text-sm
+                        transition
+                        ${
+                          index === 0
+                            ? `
+                              border-white/15
+                              text-white/60
+                              group-hover:border-accent
+                              group-hover:text-accent
+                            `
+                            : `
+                              border-border
+                              text-muted
+                              group-hover:border-accent
+                              group-hover:text-accent
+                            `
+                        }
+                      `}
+                    >
+                      ↗
+                    </span>
+                  </div>
+
+                  <h2 className="mt-12 max-w-md text-2xl font-bold sm:text-3xl">
+                    {service.title}
+                  </h2>
+
+                  <p
+                    className={`
+                      mt-4 max-w-lg leading-7
+                      ${
+                        index === 0
+                          ? "text-white/65"
+                          : "text-muted"
+                      }
+                    `}
+                  >
+                    {service.description}
+                  </p>
+
+                  <div className="mt-8 h-px w-10 bg-accent transition-all duration-300 group-hover:w-20" />
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-[#0B1F3A] dark:bg-[#D9A900]">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center sm:py-24">
-          <h2 className="text-4xl font-bold tracking-tight text-white dark:text-[#071426] sm:text-5xl">
-            {t.ctaTitle}
-          </h2>
+      {/* CTA */}
+      <section className="bg-background px-6 pb-24 text-foreground transition-colors duration-300 sm:pb-28 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="relative overflow-hidden rounded-4xl bg-primary px-7 py-16 text-center text-white sm:px-12 sm:py-20 lg:px-20">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent-soft blur-3xl"
+            />
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/70 dark:text-[#071426]/70">
-            {t.ctaDescription}
-          </p>
+            <div className="relative mx-auto max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
+                {t.ctaEyebrow}
+              </p>
 
-          <Link
-            href={`/${locale}/contact`}
-            className="mt-9 inline-flex rounded-full bg-[#D9A900] px-7 py-3.5 font-semibold text-[#071426] transition hover:bg-[#f0c21a] dark:bg-[#0B1F3A] dark:text-white dark:hover:bg-[#102d54]"
-          >
-            {t.ctaButton}
-          </Link>
+              <h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl">
+                {t.ctaTitle}
+              </h2>
+
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/65">
+                {t.ctaDescription}
+              </p>
+
+              <Link
+                href={`/${locale}/contact`}
+                className="
+                  mt-9
+                  inline-flex
+                  items-center
+                  gap-3
+                  rounded-full
+                  bg-accent
+                  px-7 py-3.5
+                  text-sm font-semibold
+                  text-primary
+                  transition-all duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-accent-hover
+                "
+              >
+                {t.ctaButton}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>

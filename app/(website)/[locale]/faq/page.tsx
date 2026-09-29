@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -137,40 +138,140 @@ export default async function FAQPage({
   const t = content[locale];
 
   return (
-    <section className="bg-white dark:bg-[#071426]">
-      <div className="mx-auto max-w-5xl px-6 py-20 sm:py-28">
-        <div className="max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#D9A900]">
-            {t.eyebrow}
-          </p>
+    <>
+      {/* Hero */}
+      <section className="bg-background text-foreground transition-colors duration-300">
+        <div className="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+          <div className="max-w-3xl">
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
+              {t.eyebrow}
+            </p>
 
-          <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight text-[#0B1F3A] dark:text-white sm:text-6xl">
-            {t.title}
-          </h1>
+            <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl">
+              {t.title}
+            </h1>
 
-          <p className="mt-8 text-xl leading-9 text-[#0B1F3A]/65 dark:text-white/65">
-            {t.intro}
-          </p>
+            <p className="mt-8 text-lg leading-8 text-muted sm:text-xl">
+              {t.intro}
+            </p>
+          </div>
         </div>
+      </section>
 
-        <div className="mt-16 divide-y divide-[#0B1F3A]/10 border-y border-[#0B1F3A]/10 dark:divide-white/10 dark:border-white/10">
-          {t.faqs.map((faq) => (
-            <details key={faq.question} className="group py-7">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-xl font-semibold text-[#0B1F3A] dark:text-white">
-                <span>{faq.question}</span>
+      {/* FAQ List */}
+      <section className="bg-surface text-foreground transition-colors duration-300">
+        <div className="mx-auto max-w-5xl px-6 py-20 sm:py-28">
+          <div className="overflow-hidden rounded-3xl border border-border bg-surface-elevated">
+            {t.faqs.map((faq, index) => (
+              <details
+                key={faq.question}
+                className={`group ${
+                  index !== t.faqs.length - 1
+                    ? "border-b border-border"
+                    : ""
+                }`}
+              >
+                <summary
+                  className="
+                    flex cursor-pointer list-none
+                    items-center justify-between
+                    gap-6
+                    px-6 py-6
+                    text-lg font-bold
+                    text-foreground
+                    transition-colors
+                    hover:text-accent
+                    sm:px-8 sm:py-7 sm:text-xl
+                  "
+                >
+                  <span>{faq.question}</span>
 
-                <span className="shrink-0 text-2xl font-normal text-[#D9A900] transition-transform group-open:rotate-45">
-                  +
-                </span>
-              </summary>
+                  <span
+                    className="
+                      flex h-9 w-9 shrink-0
+                      items-center justify-center
+                      rounded-full
+                      border border-border
+                      text-xl font-normal
+                      text-accent
+                      transition duration-200
+                      group-open:rotate-45
+                    "
+                  >
+                    +
+                  </span>
+                </summary>
 
-              <p className="mt-5 max-w-3xl pr-10 leading-8 text-[#0B1F3A]/60 dark:text-white/60">
-                {faq.answer}
+                <div className="px-6 pb-7 sm:px-8">
+                  <p className="max-w-3xl leading-8 text-muted">
+                    {faq.answer}
+                  </p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="bg-background px-6 pb-24 text-foreground transition-colors duration-300 sm:pb-28 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="relative overflow-hidden rounded-4xl bg-primary px-7 py-16 text-center text-white sm:px-12 sm:py-20 lg:px-20">
+            <div
+              aria-hidden="true"
+              className="
+                pointer-events-none
+                absolute -right-24 -top-24
+                h-72 w-72
+                rounded-full
+                bg-accent-soft
+                blur-3xl
+              "
+            />
+
+            <div className="relative mx-auto max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
+                {locale === "en"
+                  ? "STILL HAVE QUESTIONS?"
+                  : "अझै प्रश्नहरू छन्?"}
               </p>
-            </details>
-          ))}
+
+              <h2 className="mt-5 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                {locale === "en"
+                  ? "Let's talk about your research."
+                  : "तपाईंको अनुसन्धानबारे कुरा गरौँ।"}
+              </h2>
+
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/65">
+                {locale === "en"
+                  ? "If you cannot find the answer you are looking for, get in touch and tell us about your requirements."
+                  : "तपाईंले खोजेको उत्तर यहाँ भेटिएन भने हामीलाई सम्पर्क गरी आफ्नो आवश्यकताबारे जानकारी दिनुहोस्।"}
+              </p>
+
+              <Link
+                href={`/${locale}/contact`}
+                className="
+                  mt-9
+                  inline-flex
+                  items-center
+                  gap-3
+                  rounded-full
+                  bg-accent
+                  px-7 py-3.5
+                  text-sm font-semibold
+                  text-primary
+                  transition-all duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-accent-hover
+                "
+              >
+                {locale === "en" ? "Contact Us" : "सम्पर्क गर्नुहोस्"}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
