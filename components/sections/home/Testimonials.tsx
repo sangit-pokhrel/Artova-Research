@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 import type { Locale } from "@/lib/i18n/config";
 
 const content = {
@@ -9,18 +13,21 @@ const content = {
 
     testimonials: [
       {
+        number: "01",
         quote:
           "The guidance helped me understand my research process more clearly and approach my thesis with greater confidence.",
         name: "Student",
         role: "Thesis Support",
       },
       {
+        number: "02",
         quote:
           "The research support made complex parts of my project much easier to understand and organize.",
         name: "Researcher",
         role: "Research Support",
       },
       {
+        number: "03",
         quote:
           "The structured approach helped me move from an initial idea to a much clearer research direction.",
         name: "Student",
@@ -37,18 +44,21 @@ const content = {
 
     testimonials: [
       {
+        number: "०१",
         quote:
           "मार्गदर्शनले मेरो अनुसन्धान प्रक्रियालाई अझ स्पष्ट रूपमा बुझ्न र थेसिसमा आत्मविश्वासका साथ अगाडि बढ्न सहयोग गर्‍यो।",
         name: "विद्यार्थी",
         role: "थेसिस सहयोग",
       },
       {
+        number: "०२",
         quote:
           "अनुसन्धान सहयोगले मेरो परियोजनाका जटिल पक्षहरूलाई बुझ्न र व्यवस्थित गर्न निकै सहज बनायो।",
         name: "अनुसन्धानकर्ता",
         role: "अनुसन्धान सहयोग",
       },
       {
+        number: "०३",
         quote:
           "व्यवस्थित प्रक्रियाले प्रारम्भिक विचारबाट स्पष्ट अनुसन्धान दिशातर्फ अघि बढ्न सहयोग गर्‍यो।",
         name: "विद्यार्थी",
@@ -65,115 +75,342 @@ export default function Testimonials({
 }) {
   const t = content[locale];
 
-  return (
-    <section className="bg-surface text-foreground transition-colors duration-300">
-      <div className="mx-auto max-w-7xl px-6 py-24 sm:py-28 lg:px-8">
-        {/* Heading */}
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          <div>
-            <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
-              {t.eyebrow}
-            </p>
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-            <h2 className="mt-5 max-w-xl text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">
+  return (
+    <section className="-mt-2 overflow-hidden bg-surface text-foreground transition-colors duration-300">
+      <div className="mx-auto max-w-7xl px-6 py-10 sm:py-14 lg:px-8">
+        {/* =====================================================
+            HEADER
+            ===================================================== */}
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="h-px w-10 bg-accent" />
+
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">
+                {t.eyebrow}
+              </p>
+            </div>
+
+            <h2
+              className="
+                mt-4
+                max-w-xl
+                font-[var(--font-jakarta)]
+                text-4xl
+                font-extrabold
+                leading-[1.08]
+                tracking-tight
+                text-foreground
+                sm:text-5xl
+              "
+            >
               {t.title}
             </h2>
           </div>
 
-          <p className="max-w-2xl text-lg leading-8 text-muted lg:justify-self-end">
+          <p
+            className="
+              max-w-2xl
+              text-base
+              leading-8
+              text-muted
+              lg:justify-self-end
+              lg:text-lg
+            "
+          >
             {t.description}
           </p>
         </div>
 
-        {/* Testimonials */}
-        <div className="mt-16 grid gap-5 lg:grid-cols-3">
-          {t.testimonials.map((testimonial, index) => (
-            <article
-              key={testimonial.quote}
-              className={`
-                group relative flex min-h-[360px]
-                flex-col justify-between
-                overflow-hidden rounded-3xl
-                p-8
-                transition duration-300
-                hover:-translate-y-1
-                sm:p-10
-                ${
-                  index === 0
-                    ? "bg-primary text-white shadow-[var(--shadow-lg)]"
-                    : "theme-card"
-                }
-              `}
-            >
-              {/* Large quotation mark */}
-              <span
-                aria-hidden="true"
-                className={`
-                  absolute -right-2 -top-8
-                  text-[10rem]
-                  font-serif
-                  leading-none
-                  ${
-                    index === 0
-                      ? "text-white/[0.05]"
-                      : "text-foreground/[0.04]"
-                  }
-                `}
-              >
-                “
-              </span>
+        {/* =====================================================
+            TESTIMONIAL AREA
+            ===================================================== */}
+        <div className="relative mt-10">
+          {/* Large opening quotation mark */}
+          <span
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute
+              -left-3
+              -top-16
+              z-0
+              select-none
+              font-serif
+              text-[9rem]
+              font-bold
+              leading-none
+              text-accent/[0.08]
+              sm:-left-6
+              sm:-top-20
+              sm:text-[11rem]
+            "
+          >
+            “
+          </span>
 
-              <div className="relative">
-                {/* Small accent */}
-                <div className="mb-8 h-1 w-8 rounded-full bg-accent transition-all duration-300 group-hover:w-14" />
+          {/* Large closing quotation mark */}
+          <span
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute
+              -bottom-20
+              -right-2
+              z-0
+              select-none
+              font-serif
+              text-[9rem]
+              font-bold
+              leading-none
+              text-accent/[0.08]
+              sm:-right-5
+              sm:-bottom-24
+              sm:text-[11rem]
+            "
+          >
+            ”
+          </span>
 
-                <blockquote
-                  className={`
-                    text-xl
-                    font-medium
-                    leading-8
-                    ${
-                      index === 0
-                        ? "text-white/90"
-                        : "text-foreground/80"
-                    }
-                  `}
+          {/* Timeline */}
+          <div className="relative z-10 hidden h-px bg-border md:block">
+            <div
+              className="
+                absolute
+                left-0
+                top-1/2
+                h-1.5
+                w-1.5
+                -translate-y-1/2
+                rounded-full
+                bg-accent
+              "
+            />
+
+            <div
+              className="
+                absolute
+                right-0
+                top-1/2
+                h-1.5
+                w-1.5
+                -translate-y-1/2
+                rounded-full
+                bg-border-strong
+              "
+            />
+          </div>
+
+          {/* =================================================
+              TESTIMONIALS
+              ================================================= */}
+          <div className="relative z-10 grid md:grid-cols-3">
+            {t.testimonials.map((testimonial, index) => {
+              const isActive = activeIndex === index;
+
+              return (
+                <button
+                  key={testimonial.quote}
+                  type="button"
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(null)}
+                  onFocus={() => setActiveIndex(index)}
+                  onBlur={() => setActiveIndex(null)}
+                  className="
+                    group
+                    relative
+                    text-left
+                    outline-none
+                    md:px-6
+                    md:first:pl-0
+                    md:last:pr-0
+                  "
                 >
-                  “{testimonial.quote}”
-                </blockquote>
-              </div>
+                  {/* Timeline point */}
+                  <div
+                    className={`
+                      absolute
+                      -top-[4px]
+                      left-1/2
+                      hidden
+                      h-2
+                      w-2
+                      -translate-x-1/2
+                      rounded-full
+                      transition-all
+                      duration-300
+                      md:block
+                      ${
+                        isActive
+                          ? "h-3 w-3 bg-accent shadow-[0_0_0_5px_var(--accent-soft)]"
+                          : "bg-border-strong"
+                      }
+                    `}
+                  />
 
-              {/* Attribution */}
-              <div
-                className={`
-                  relative mt-10
-                  border-t pt-6
-                  ${
-                    index === 0
-                      ? "border-white/10"
-                      : "border-border"
-                  }
-                `}
-              >
-                <p className="font-semibold">
-                  {testimonial.name}
-                </p>
+                  <div
+                    className={`
+                      relative
+                      py-8
+                      transition-all
+                      duration-300
+                      md:pt-10
+                      ${
+                        isActive
+                          ? "md:-translate-y-2"
+                          : "md:translate-y-0"
+                      }
+                    `}
+                  >
+                    {/* Small decorative closing quote */}
+                    <span
+                      aria-hidden="true"
+                      className={`
+                        pointer-events-none
+                        absolute
+                        right-3
+                        top-7
+                        select-none
+                        font-serif
+                        text-5xl
+                        leading-none
+                        transition-all
+                        duration-300
+                        ${
+                          isActive
+                            ? "text-accent/25"
+                            : "text-accent/[0.07]"
+                        }
+                      `}
+                    >
+                      ”
+                    </span>
 
-                <p
-                  className={`
-                    mt-1 text-sm
-                    ${
-                      index === 0
-                        ? "text-white/45"
-                        : "text-muted"
-                    }
-                  `}
-                >
-                  {testimonial.role}
-                </p>
-              </div>
-            </article>
-          ))}
+                    {/* Number */}
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={`
+                          font-[var(--font-jakarta)]
+                          text-xs
+                          font-bold
+                          tracking-[0.18em]
+                          transition-colors
+                          duration-300
+                          ${
+                            isActive
+                              ? "text-accent"
+                              : "text-muted"
+                          }
+                        `}
+                      >
+                        {testimonial.number}
+                      </span>
+
+                      <span
+                        className={`
+                          h-px
+                          transition-all
+                          duration-300
+                          ${
+                            isActive
+                              ? "w-12 bg-accent"
+                              : "w-7 bg-border"
+                          }
+                        `}
+                      />
+                    </div>
+
+                    {/* Quote */}
+                    <blockquote
+                      className={`
+                        relative
+                        mt-6
+                        max-w-md
+                        font-[var(--font-jakarta)]
+                        text-lg
+                        font-medium
+                        leading-8
+                        transition-all
+                        duration-300
+                        ${
+                          activeIndex !== null && !isActive
+                            ? "text-foreground/40"
+                            : "text-foreground/80"
+                        }
+                        ${
+                          isActive
+                            ? "text-foreground"
+                            : ""
+                        }
+                      `}
+                    >
+                      “{testimonial.quote}”
+                    </blockquote>
+
+                    {/* Attribution */}
+                    <div className="mt-7">
+                      <p
+                        className={`
+                          text-sm
+                          font-bold
+                          transition-colors
+                          duration-300
+                          ${
+                            isActive
+                              ? "text-accent"
+                              : "text-foreground"
+                          }
+                        `}
+                      >
+                        {testimonial.name}
+                      </p>
+
+                      <p className="mt-1 text-xs text-muted">
+                        {testimonial.role}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Active bottom indicator */}
+                  <span
+                    className={`
+                      absolute
+                      bottom-0
+                      left-6
+                      right-6
+                      h-0.5
+                      rounded-full
+                      bg-accent
+                      transition-all
+                      duration-300
+                      md:left-6
+                      md:right-6
+                      ${
+                        isActive
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }
+                    `}
+                  />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* =====================================================
+            BOTTOM BRAND LINE
+            ===================================================== */}
+        <div className="relative z-10 mt-10 flex items-center gap-4">
+          <span className="h-px flex-1 bg-border" />
+
+          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted">
+            Artova Research
+          </span>
+
+          <span className="h-px flex-1 bg-border" />
         </div>
       </div>
     </section>

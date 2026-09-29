@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { translations } from "@/lib/i18n/translations";
@@ -34,7 +35,7 @@ export default function Header() {
   };
 
   /*
-   * Switch the navbar to glass mode after
+   * Switch navbar to glass mode after
    * scrolling through roughly the middle
    * of the Hero section.
    */
@@ -101,7 +102,10 @@ export default function Header() {
           strokeWidth="1.7"
         >
           <circle cx="11" cy="11" r="6.5" />
-          <path d="m16 16 4.5 4.5" strokeLinecap="round" />
+          <path
+            d="m16 16 4.5 4.5"
+            strokeLinecap="round"
+          />
           <path
             d="M8.5 11h5M11 8.5v5"
             strokeLinecap="round"
@@ -151,10 +155,12 @@ export default function Header() {
           strokeWidth="1.7"
         >
           <circle cx="12" cy="12" r="8.5" />
+
           <path
             d="M9.8 9.3a2.5 2.5 0 1 1 4.3 1.8c-.8.8-2.1 1.2-2.1 2.7"
             strokeLinecap="round"
           />
+
           <path
             d="M12 16.7h.01"
             strokeLinecap="round"
@@ -194,6 +200,7 @@ export default function Header() {
           `}
         >
           <div className="flex h-[68px] items-center justify-between">
+
             {/* =====================================================
                 LOGO
                 ===================================================== */}
@@ -203,7 +210,6 @@ export default function Header() {
               onClick={closeMenu}
               className="group flex items-center gap-3"
             >
-              {/* Logo Mark */}
               <span className="relative flex h-14 w-14 shrink-0 items-center justify-center">
                 <Image
                   src="/images/logo.png"
@@ -215,7 +221,6 @@ export default function Header() {
                 />
               </span>
 
-              {/* Brand */}
               <span className="flex flex-col justify-center leading-none">
                 <span
                   className={`
@@ -328,7 +333,9 @@ export default function Header() {
                     }
                   `}
                 >
-                  {locale === "en" ? "Explore" : "अन्वेषण"}
+                  {locale === "en"
+                    ? "Explore"
+                    : "अन्वेषण"}
 
                   <svg
                     viewBox="0 0 20 20"
@@ -368,7 +375,8 @@ export default function Header() {
                 >
                   <div
                     className="
-                      overflow-hidden rounded-2xl
+                      overflow-hidden
+                      rounded-2xl
                       border border-border
                       bg-surface-elevated
                       p-2
@@ -423,7 +431,8 @@ export default function Header() {
 
                           <span
                             className="
-                              ml-auto text-accent
+                              ml-auto
+                              text-accent
                               opacity-0
                               transition-all duration-200
                               group-hover:translate-x-1
@@ -459,50 +468,14 @@ export default function Header() {
 
                 <ThemeToggle />
 
-                <Link
-                  href={`/${locale}/contact`}
-                  className="
-                    group ml-1
-                    inline-flex items-center gap-2
-                    rounded-full
-                    bg-accent
-                    px-5 py-2.5
-                    text-sm font-bold
-                    text-primary
-                    shadow-[var(--shadow-sm)]
-                    transition-all duration-300
-                    hover:-translate-y-1
-                    hover:bg-accent-hover
-                    hover:shadow-[var(--shadow-md)]
-                    active:translate-y-0
-                    active:scale-[0.98]
-                  "
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="
-                      h-4 w-4
-                      transition-transform duration-300
-                      group-hover:-translate-y-0.5
-                      group-hover:translate-x-0.5
-                    "
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                  >
-                    <path
-                      d="m21 3-7.5 18-3.5-7-7-3.5L21 3Z"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="m10 14 4.5-4.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                {/* MASTER CONTACT BUTTON */}
 
-                  <span>{t.navigation.contact}</span>
-                </Link>
+                <Button
+                  href={`/${locale}/contact`}
+                  className="ml-1 px-5 py-2.5"
+                >
+                  {t.navigation.contact}
+                </Button>
               </div>
             </nav>
 
@@ -617,7 +590,9 @@ export default function Header() {
                       }
                     `}
                   >
-                    <span>{t.navigation[item.key]}</span>
+                    <span>
+                      {t.navigation[item.key]}
+                    </span>
 
                     {active && (
                       <span className="h-1.5 w-1.5 rounded-full bg-accent" />
@@ -643,7 +618,9 @@ export default function Header() {
                 "
               >
                 <span>
-                  {locale === "en" ? "Explore" : "अन्वेषण"}
+                  {locale === "en"
+                    ? "Explore"
+                    : "अन्वेषण"}
                 </span>
 
                 <svg
@@ -691,46 +668,15 @@ export default function Header() {
                 </div>
               )}
 
-              {/* MOBILE CONTACT */}
+              {/* MOBILE CONTACT — SAME MASTER BUTTON */}
 
-              <Link
+              <Button
                 href={`/${locale}/contact`}
                 onClick={closeMenu}
-                className="
-                  group mt-3
-                  flex items-center justify-center gap-2
-                  rounded-full
-                  bg-accent
-                  px-5 py-3.5
-                  text-sm font-bold
-                  text-primary
-                  shadow-[var(--shadow-sm)]
-                  transition-all duration-300
-                  hover:-translate-y-0.5
-                  hover:bg-accent-hover
-                  hover:shadow-[var(--shadow-md)]
-                "
+                className="mt-3 w-full"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="h-4 w-4"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                >
-                  <path
-                    d="m21 3-7.5 18-3.5-7-7-3.5L21 3Z"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="m10 14 4.5-4.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-
                 {t.navigation.contact}
-              </Link>
+              </Button>
             </nav>
           </div>
         </div>
