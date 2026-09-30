@@ -1,367 +1,586 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import type { Locale } from "@/lib/i18n/config";
 
 type HeroStatsAltProps = {
-    locale: "en" | "ne";
+  locale: Locale;
 };
 
-type Stat = {
-    value: number;
-    suffix: string;
-    label: string;
-    icon: string;
-};
+const content = {
+  en: {
+    eyebrow: "RESEARCH AT A GLANCE",
+    title: "Built around your",
+    highlightedTitle: "research journey.",
+    description:
+      "From the first idea to the final outcome, we focus on making academic research clearer, more structured, and easier to move forward.",
+    stats: [
+      {
+        value: "8+",
+        title: "Research Support",
+        subtitle: "Areas",
+        icon: "research",
+        visual: "wave",
+      },
+      {
+        value: "10+",
+        title: "Academic",
+        subtitle: "Subjects",
+        icon: "subjects",
+        visual: "bars",
+      },
+      {
+        value: "100%",
+        title: "Research-Focused",
+        subtitle: "Approach",
+        icon: "target",
+        visual: "line",
+      },
+      {
+        value: "1",
+        title: "Clearer Path",
+        subtitle: "Forward",
+        icon: "result",
+        visual: "gold",
+      },
+    ],
+  },
 
-function AnimatedNumber({
-    value,
-    suffix,
-    start,
-}: {
-    value: number;
-    suffix: string;
-    start: boolean;
-}) {
-    const [count, setCount] = useState(0);
+  ne: {
+    eyebrow: "अनुसन्धानको एक झलक",
+    title: "तपाईंको",
+    highlightedTitle: "अनुसन्धान यात्रामा केन्द्रित।",
+    description:
+      "पहिलो विचारदेखि अन्तिम नतिजासम्म, हामी अनुसन्धानलाई अझ स्पष्ट, व्यवस्थित र अगाडि बढाउन सहज बनाउन केन्द्रित छौँ।",
+    stats: [
+      {
+        value: "8+",
+        title: "अनुसन्धान सहयोगका",
+        subtitle: "क्षेत्रहरू",
+        icon: "research",
+        visual: "wave",
+      },
+      {
+        value: "10+",
+        title: "शैक्षिक",
+        subtitle: "विषयहरू",
+        icon: "subjects",
+        visual: "bars",
+      },
+      {
+        value: "100%",
+        title: "अनुसन्धान-केन्द्रित",
+        subtitle: "दृष्टिकोण",
+        icon: "target",
+        visual: "line",
+      },
+      {
+        value: "1",
+        title: "स्पष्ट",
+        subtitle: "मार्ग",
+        icon: "result",
+        visual: "gold",
+      },
+    ],
+  },
+} as const;
 
-    useEffect(() => {
-        if (!start) return;
+function ResearchIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-6 w-6"
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"
+      />
+    </svg>
+  );
+}
 
-        const duration = 1800;
-        const startTime = performance.now();
+function SubjectsIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-6 w-6"
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m12 3 8 4-8 4-8-4 8-4Z"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m4 12 8 4 8-4"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m4 17 8 4 8-4"
+      />
+    </svg>
+  );
+}
 
-        let animationFrame: number;
+function TargetIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-6 w-6"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="8.5" />
+      <circle cx="12" cy="12" r="4.5" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m12 12 6.5-6.5"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M16 5.5h2.5V8"
+      />
+    </svg>
+  );
+}
 
-        const animate = (currentTime: number) => {
-            const progress = Math.min(
-                (currentTime - startTime) / duration,
-                1
-            );
+function ResultIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-6 w-6"
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 3v14"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m7 12 5 5 5-5"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M5 21h14"
+      />
+    </svg>
+  );
+}
 
-            const easedProgress = 1 - Math.pow(1 - progress, 3);
+function StatIcon({ type }: { type: string }) {
+  if (type === "subjects") {
+    return <SubjectsIcon />;
+  }
 
-            setCount(Math.round(value * easedProgress));
+  if (type === "target") {
+    return <TargetIcon />;
+  }
 
-            if (progress < 1) {
-                animationFrame = requestAnimationFrame(animate);
-            }
-        };
+  if (type === "result") {
+    return <ResultIcon />;
+  }
 
-        animationFrame = requestAnimationFrame(animate);
+  return <ResearchIcon />;
+}
 
-        return () => cancelAnimationFrame(animationFrame);
-    }, [start, value]);
+function WaveVisual() {
+  return (
+    <svg
+      viewBox="0 0 220 55"
+      fill="none"
+      className="h-14 w-full"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="wave-fill" x1="0" y1="0" x2="220" y2="0">
+          <stop offset="0%" stopColor="#B100E8" stopOpacity="0.16" />
+          <stop offset="100%" stopColor="#7B2CBF" stopOpacity="0" />
+        </linearGradient>
+      </defs>
 
-    return (
-        <>
-            {count}
-            {suffix}
-        </>
-    );
+      <path
+        d="M0 43C28 29 48 30 72 37C97 45 117 47 141 37C165 27 186 28 220 38V55H0Z"
+        fill="url(#wave-fill)"
+      />
+
+      <path
+        d="M0 43C28 29 48 30 72 37C97 45 117 47 141 37C165 27 186 28 220 38"
+        stroke="#B100E8"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function BarsVisual() {
+  return (
+    <div
+      className="flex h-14 items-end justify-end gap-2"
+      aria-hidden="true"
+    >
+      {[10, 16, 23, 34, 45, 55].map((height, index) => (
+        <span
+          key={index}
+          className="
+            w-3.5 rounded-t-md
+            bg-gradient-to-t from-[#7B2CBF]/20 to-[#8B2FC9]/75
+            transition-all duration-500
+            group-hover:from-[#7B2CBF]/35
+            group-hover:to-[#B100E8]
+          "
+          style={{ height: `${height}px` }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function LineVisual() {
+  return (
+    <svg
+      viewBox="0 0 220 55"
+      fill="none"
+      className="h-14 w-full"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="line-fill" x1="0" y1="0" x2="220" y2="0">
+          <stop offset="0%" stopColor="#7B2CBF" stopOpacity="0.05" />
+          <stop offset="100%" stopColor="#B100E8" stopOpacity="0.18" />
+        </linearGradient>
+      </defs>
+
+      <path
+        d="M0 44C30 35 48 39 71 41C97 44 111 42 132 31C155 19 174 8 220 7V55H0Z"
+        fill="url(#line-fill)"
+      />
+
+      <path
+        d="M0 44C30 35 48 39 71 41C97 44 111 42 132 31C155 19 174 8 220 7"
+        stroke="#B100E8"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+
+      <circle cx="220" cy="7" r="4.5" fill="#B100E8" />
+    </svg>
+  );
+}
+
+function GoldLineVisual() {
+  return (
+    <svg
+      viewBox="0 0 220 55"
+      fill="none"
+      className="h-14 w-full"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="gold-fill" x1="0" y1="0" x2="220" y2="0">
+          <stop offset="0%" stopColor="#F5C400" stopOpacity="0.04" />
+          <stop offset="100%" stopColor="#F5C400" stopOpacity="0.18" />
+        </linearGradient>
+      </defs>
+
+      <path
+        d="M0 44C30 36 52 41 76 40C103 39 119 33 139 28C161 22 181 27 197 18C207 12 214 10 220 7V55H0Z"
+        fill="url(#gold-fill)"
+      />
+
+      <path
+        d="M0 44C30 36 52 41 76 40C103 39 119 33 139 28C161 22 181 27 197 18C207 12 214 10 220 7"
+        stroke="#F5C400"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+
+      <circle cx="220" cy="7" r="4.5" fill="#F5C400" />
+    </svg>
+  );
+}
+
+function StatVisual({ type }: { type: string }) {
+  if (type === "bars") {
+    return <BarsVisual />;
+  }
+
+  if (type === "line") {
+    return <LineVisual />;
+  }
+
+  if (type === "gold") {
+    return <GoldLineVisual />;
+  }
+
+  return <WaveVisual />;
 }
 
 export default function HeroStatsAlt({
-    locale,
+  locale,
 }: HeroStatsAltProps) {
-    const isNepali = locale === "ne";
+  const t = content[locale];
 
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const [startAnimation, setStartAnimation] = useState(false);
+  return (
+    <section
+      className="
+        relative overflow-hidden
+        bg-background
+        text-foreground
+        transition-colors duration-300
+      "
+    >
+      {/* Background glow - top left */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute
+          -left-40 -top-32
+          h-[30rem] w-[30rem]
+          rounded-full
+          bg-[#B100E8]/8
+          blur-[110px]
+        "
+      />
 
-    useEffect(() => {
-        const element = sectionRef.current;
+      {/* Background glow - top right */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute
+          -right-40 -top-20
+          h-[28rem] w-[28rem]
+          rounded-full
+          bg-[#7B2CBF]/10
+          blur-[120px]
+        "
+      />
 
-        if (!element) return;
+      {/* Background glow - bottom left */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute
+          -bottom-40 -left-20
+          h-[22rem] w-[22rem]
+          rounded-full
+          bg-[#8B2FC9]/6
+          blur-[100px]
+        "
+      />
 
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setStartAnimation(true);
-                    observer.disconnect();
-                }
-            },
-            {
-                threshold: 0.25,
-            }
-        );
+      {/* Decorative circles */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute
+          -right-10 top-8
+          h-32 w-32
+          rounded-full
+          border border-purple-bright/10
+        "
+      />
 
-        observer.observe(element);
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute
+          right-10 top-20
+          h-16 w-16
+          rounded-full
+          bg-purple-bright/5
+          blur-xl
+        "
+      />
 
-        return () => observer.disconnect();
-    }, []);
+      {/* Decorative dots */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute
+          bottom-8 left-0
+          h-24 w-24
+          opacity-40
+        "
+      >
+        <div
+          className="
+            h-full w-full
+            bg-[radial-gradient(circle,#B100E8_1.5px,transparent_1.5px)]
+            [background-size:14px_14px]
+          "
+        />
+      </div>
 
-    const trustItems = [
-        {
-            icon: "✓",
-            title: isNepali ? "Research Focused" : "Research Focused",
-        },
-        {
-            icon: "◷",
-            title: isNepali ? "Timely Support" : "Timely Support",
-        },
-        {
-            icon: "✦",
-            title: isNepali ? "Expert Guidance" : "Expert Guidance",
-        },
-        {
-            icon: "★",
-            title: isNepali ? "Quality Support" : "Quality Support",
-        },
-    ];
+      <div className="relative mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+        <div className="grid gap-10 lg:grid-cols-[0.78fr_2.22fr] lg:items-center lg:gap-12">
+          {/* Intro */}
+          <div className="relative">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-10 bg-gradient-to-r from-[#7B2CBF] to-[#D100D1]" />
 
-    const stats: Stat[] = [
-        {
-            value: 500,
-            suffix: "+",
-            label: "Projects Completed",
-            icon: "▣",
-        },
-        {
-            value: 98,
-            suffix: "%",
-            label: "Success Rate",
-            icon: "◔",
-        },
-        {
-            value: 50,
-            suffix: "+",
-            label: "Subject Experts",
-            icon: "♙",
-        },
-        {
-            value: 7,
-            suffix: "+",
-            label: "Years Experience",
-            icon: "▦",
-        },
-        {
-            value: 24,
-            suffix: "/7",
-            label: "Expert Support",
-            icon: "◉",
-        },
-    ];
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#8B2FC9]">
+                {t.eyebrow}
+              </p>
+            </div>
 
-    return (
-        <section
-            ref={sectionRef}
-            className="relative z-20 -mt-14 w-full pb-14"
-        >
-            <div
-                className="
-                    relative mx-auto max-w-7xl overflow-hidden
-                    rounded-[1.75rem]
-                    border border-purple-bright/30
-                    bg-[#17033F]
-                    shadow-[0_25px_70px_rgba(90,24,154,0.32)]
-                "
+            <h2
+              className="
+                mt-5
+                max-w-lg
+                text-4xl font-extrabold
+                leading-[1.08]
+                tracking-[-0.035em]
+                text-foreground
+                sm:text-5xl
+              "
             >
-                {/* Background */}
-                <div
-                    aria-hidden="true"
-                    className="
-                        absolute inset-0
-                        bg-gradient-to-br
-                        from-[#18033F]
-                        via-[#2B075F]
-                        to-[#4B0C91]
-                    "
-                />
+              {t.title}
+              <br />
+              <span className="bg-gradient-to-r from-[#7B2CBF] via-[#B100E8] to-[#D100D1] bg-clip-text text-transparent">
+                {t.highlightedTitle}
+              </span>
+            </h2>
 
-                {/* Purple glow */}
-                <div
-                    aria-hidden="true"
-                    className="
-                        absolute -left-24 -top-32
-                        h-72 w-72
-                        rounded-full
-                        bg-[#B100E8]/20
-                        blur-[100px]
-                    "
-                />
+            <p className="mt-6 max-w-md text-base leading-7 text-muted">
+              {t.description}
+            </p>
+          </div>
 
+          {/* Stats */}
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {t.stats.map((stat) => (
+              <article
+                key={stat.value + stat.title}
+                className="
+                  group relative overflow-hidden
+                  rounded-[1.5rem]
+                  border border-[#7B2CBF]/12
+                  bg-surface-elevated
+                  p-6
+                  shadow-[0_12px_35px_rgba(90,24,154,0.06)]
+                  transition-all duration-500
+                  hover:-translate-y-1.5
+                  hover:border-[#B100E8]/30
+                  hover:shadow-[0_20px_50px_rgba(123,44,191,0.12)]
+                "
+              >
+                {/* Card glow */}
                 <div
-                    aria-hidden="true"
-                    className="
-                        absolute -bottom-36 -right-20
-                        h-80 w-80
-                        rounded-full
-                        bg-[#D100D1]/20
-                        blur-[110px]
-                    "
-                />
-
-                {/* Subtle grid */}
-                <div
-                    aria-hidden="true"
-                    className="
-                        absolute inset-0 opacity-[0.035]
-                        [background-image:linear-gradient(rgba(255,255,255,0.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.8)_1px,transparent_1px)]
-                        [background-size:40px_40px]
-                    "
+                  aria-hidden="true"
+                  className="
+                    pointer-events-none absolute
+                    -right-12 -top-12
+                    h-28 w-28
+                    rounded-full
+                    bg-purple-bright/0
+                    blur-3xl
+                    transition-all duration-500
+                    group-hover:bg-purple-bright/10
+                  "
                 />
 
                 <div className="relative z-10">
-                    {/* TRUST BADGES */}
+                  {/* Icon + arrow */}
+                  <div className="flex items-start justify-between">
                     <div
-                        className="
-                            flex flex-wrap items-center justify-center
-                            gap-3 px-6 py-6
-                            sm:px-8
-                        "
+                      className="
+                        flex h-11 w-11 items-center justify-center
+                        rounded-xl
+                        border border-purple-bright/10
+                        bg-purple-bright/8
+                        text-purple-brand
+                        transition-all duration-300
+                        group-hover:scale-105
+                        group-hover:border-purple-bright/20
+                        group-hover:bg-purple-bright/12
+                      "
                     >
-                        {trustItems.map((item) => (
-                            <div
-                                key={item.title}
-                                className="
-                                    inline-flex items-center gap-2.5
-                                    rounded-full
-                                    border border-white/15
-                                    bg-white/[0.07]
-                                    px-4 py-2.5
-                                    shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]
-                                    backdrop-blur-md
-                                "
-                            >
-                                <span
-                                    className="
-                                        flex h-6 w-6 items-center
-                                        justify-center rounded-full
-                                        bg-gradient-to-br
-                                        from-[#8B2FC9]
-                                        via-[#B100E8]
-                                        to-[#D100D1]
-                                        text-xs font-bold text-white
-                                        shadow-[0_0_14px_rgba(177,0,232,0.4)]
-                                    "
-                                >
-                                    {item.icon}
-                                </span>
-
-                                <span
-                                    className="
-                                        text-xs font-semibold
-                                        text-white/80
-                                        sm:text-sm
-                                    "
-                                >
-                                    {item.title}
-                                </span>
-                            </div>
-                        ))}
+                      <StatIcon type={stat.icon} />
                     </div>
 
-                    {/* Divider */}
-                    <div
-                        className="
-                            mx-6 h-px
-                            bg-gradient-to-r
-                            from-transparent
-                            via-purple-bright/30
-                            to-transparent
-                            sm:mx-10
-                        "
-                    />
+                    <span
+                      className="
+                        flex h-8 w-8 items-center justify-center
+                        rounded-full
+                        border border-purple-bright/10
+                        text-sm text-purple-brand/70
+                        transition-all duration-300
+                        group-hover:border-purple-bright/30
+                        group-hover:bg-purple-bright/5
+                        group-hover:text-purple-brand
+                        group-hover:translate-x-0.5
+                        group-hover:-translate-y-0.5
+                      "
+                    >
+                      ↗
+                    </span>
+                  </div>
 
-                    {/* STATS */}
-                    <div className="grid grid-cols-2 md:grid-cols-5">
-                        {stats.map((stat, index) => (
-                            <div
-                                key={stat.label}
-                                className={`
-                                    relative
-                                    flex min-h-[150px]
-                                    flex-col items-center justify-center
-                                    px-4 py-7
-                                    text-center
-                                    ${
-                                        index === 4
-                                            ? "col-span-2 md:col-span-1"
-                                            : ""
-                                    }
-                                `}
-                            >
-                                {/* Separator */}
-                                {index > 0 && (
-                                    <div
-                                        aria-hidden="true"
-                                        className="
-                                            absolute left-0 top-1/2
-                                            hidden h-14 w-px
-                                            -translate-y-1/2
-                                            bg-gradient-to-b
-                                            from-transparent
-                                            via-white/15
-                                            to-transparent
-                                            md:block
-                                        "
-                                    />
-                                )}
+                  {/* Number */}
+                  <p
+                    className="
+                      mt-7
+                      text-5xl font-extrabold
+                      leading-none
+                      tracking-[-0.045em]
+                      bg-gradient-to-r
+                      from-[#5A189A]
+                      via-[#7B2CBF]
+                      to-[#B100E8]
+                      bg-clip-text
+                      text-transparent
+                    "
+                  >
+                    {stat.value}
+                  </p>
 
-                                {/* Icon */}
-                                <div
-                                    className="
-                                        mb-3 flex h-9 w-9
-                                        items-center justify-center
-                                        rounded-xl
-                                        border border-purple-bright/30
-                                        bg-purple-bright/10
-                                        text-base
-                                        text-[#D100D1]
-                                        shadow-[0_0_18px_rgba(177,0,232,0.15)]
-                                    "
-                                >
-                                    {stat.icon}
-                                </div>
+                  {/* Label */}
+                  <div className="mt-3 min-h-[3.5rem]">
+                    <p className="text-sm font-semibold leading-5 text-foreground">
+                      {stat.title}
+                    </p>
 
-                                {/* Animated number */}
-                                <div
-                                    className="
-                                        font-[var(--font-jakarta)]
-                                        text-4xl font-extrabold
-                                        leading-none
-                                        tracking-tight
-                                        text-white
-                                        sm:text-[2.7rem]
-                                    "
-                                >
-                                    <AnimatedNumber
-                                        value={stat.value}
-                                        suffix={stat.suffix}
-                                        start={startAnimation}
-                                    />
-                                </div>
+                    <p className="text-sm font-semibold leading-5 text-foreground">
+                      {stat.subtitle}
+                    </p>
+                  </div>
 
-                                {/* Label */}
-                                <div
-                                    className="
-                                        mt-2
-                                        text-[10px]
-                                        font-semibold
-                                        uppercase
-                                        tracking-[0.12em]
-                                        text-white/45
-                                        sm:text-xs
-                                    "
-                                >
-                                    {stat.label}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Bottom accent */}
-                    <div
-                        className="
-                            h-[3px]
-                            bg-gradient-to-r
-                            from-[#5A189A]
-                            via-[#B100E8]
-                            to-[#D100D1]
-                        "
-                    />
+                  {/* Mini visual */}
+                  <div className="mt-5">
+                    <StatVisual type={stat.visual} />
+                  </div>
                 </div>
-            </div>
-        </section>
-    );
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

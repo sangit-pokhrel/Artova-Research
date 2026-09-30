@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { links } from "@/lib/links";
 
 import type { Locale } from "@/lib/i18n/config";
 
@@ -21,9 +22,9 @@ const content = {
       { label: "Contact", href: "/contact" },
     ],
 
-    location: "Chardobato, Thimi, Bhaktapur",
-    email: "info@artovaresearch.com",
-    phone: "+977 9809816596",
+    location: links.location.address,
+email: links.contact.email,
+phone: links.contact.phone,
 
     privacy: "Privacy Policy",
     terms: "Terms & Conditions",
@@ -47,9 +48,9 @@ const content = {
       { label: "सम्पर्क", href: "/contact" },
     ],
 
-    location: "चारदोबाटो, ठिमी, भक्तपुर",
-    email: "info@artovaresearch.com",
-    phone: "+977 9809816596",
+    location: links.location.address,
+email: links.contact.email,
+phone: links.contact.phone,
 
     privacy: "गोपनीयता नीति",
     terms: "नियम तथा सर्तहरू",
@@ -485,9 +486,14 @@ export default function Footer({
                   </svg>
                 </span>
 
-                <p className="text-base text-white/75">
-                  {t.location}
-                </p>
+                <a
+  href={links.location.googleMaps}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="transition-colors duration-200 hover:text-purple-bright"
+>
+  {t.location}
+</a>
               </div>
 
               {/* Phone */}

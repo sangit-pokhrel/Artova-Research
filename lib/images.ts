@@ -69,12 +69,21 @@ export const images = {
       "/images/why-choose-us/research-guidance-support.jpg",
   },
 
-  testimonials: {
-    studentThesisSupport:
-      "/images/testimonials/student-thesis-support.jpg",
-    researcherResearchSupport:
-      "/images/testimonials/researcher-research-support.webp",
-    studentResearchGuidance:
-      "/images/testimonials/student-research-guidance.jpg",
-  },
+testimonials: {
+  studentThesisSupport:
+    "/images/testimonials/student-thesis-support.jpg",
+
+  researcherResearchSupport:
+    "/images/testimonials/researcher-research-support.webp",
+
+  studentResearchGuidance:
+    "/images/testimonials/student-research-guidance.jpg",
+
+  trustpilotLogo:
+  "/images/trustpilot/trustpilot-logo-new.png",
+},
+
+  contact: {
+  hero: "/images/contact/contact-hero.png",
+},
 };
