@@ -43,7 +43,6 @@ export const images = {
       "/images/subjects/hospitality-tourism.jpg",
     otherAcademicAreas:
       "/images/subjects/other-academic-areas.jpg",
-      // cta: "/images/make-journey-clear.png",
   },
 
   howItWorks: {
