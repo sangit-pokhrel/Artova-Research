@@ -1,5 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+import Button from "@/components/ui/Button";
+import ResearchIcon from "@/components/ui/ResearchIcon";
+import ResearchIconContainer from "@/components/ui/ResearchIconContainer";
+import { images } from "@/lib/images";
 import type { Locale } from "@/lib/i18n/config";
 
 const content = {
@@ -15,48 +21,64 @@ const content = {
         title: "Research Proposal Support",
         description:
           "Develop a clear research proposal with support for topic selection, research questions, objectives, scope, methodology, and overall structure.",
+        icon: "proposal" as const,
+        image: images.services.proposalSupport,
       },
       {
         number: "02",
         title: "Thesis & Dissertation Support",
         description:
           "Get structured guidance throughout your thesis or dissertation, from planning and chapter development to review and refinement.",
+        icon: "thesis" as const,
+        image: images.services.thesisAndDissertation,
       },
       {
         number: "03",
         title: "Literature Review",
         description:
           "Identify, organize, evaluate, and synthesize relevant academic literature to establish a strong foundation for your research.",
+        icon: "literature" as const,
+        image: images.services.literatureReview,
       },
       {
         number: "04",
         title: "Research Methodology",
         description:
           "Understand and develop appropriate research designs, methods, sampling approaches, data collection techniques, and methodological structures.",
+        icon: "methodology" as const,
+        image: images.howItWorks.planTheResearch,
       },
       {
         number: "05",
         title: "Data Analysis",
         description:
           "Get support with preparing, analyzing, interpreting, and presenting research data using appropriate analytical approaches.",
+        icon: "data" as const,
+        image: images.services.dataAnalysis,
       },
       {
         number: "06",
         title: "Academic Writing Support",
         description:
           "Improve the structure, clarity, organization, and academic presentation of your research documents.",
+        icon: "writing" as const,
+        image: images.howItWorks.reviewAndRefine,
       },
       {
         number: "07",
         title: "Research Guidance",
         description:
           "Receive practical guidance when you are unsure about your research direction, methodology, analysis, or next steps.",
+        icon: "guidance" as const,
+        image: images.whyChooseUs.clearGuidance,
       },
       {
         number: "08",
         title: "Project & Academic Support",
         description:
           "Support for academic projects and research-related work across different subjects and academic levels.",
+        icon: "project" as const,
+        image: images.services.projectAcademicSupport,
       },
     ],
 
@@ -79,48 +101,64 @@ const content = {
         title: "अनुसन्धान प्रस्ताव सहयोग",
         description:
           "विषय छनोट, अनुसन्धान प्रश्न, उद्देश्य, क्षेत्र, अनुसन्धान विधि तथा समग्र संरचनामा सहयोगसहित स्पष्ट अनुसन्धान प्रस्ताव तयार गर्न सहयोग।",
+        icon: "proposal" as const,
+        image: images.services.proposalSupport,
       },
       {
         number: "०२",
         title: "थेसिस तथा डिसर्टेसन सहयोग",
         description:
           "योजना तथा अध्याय विकासदेखि समीक्षा र परिष्करणसम्म थेसिस वा डिसर्टेसनको सम्पूर्ण प्रक्रियामा व्यवस्थित मार्गदर्शन।",
+        icon: "thesis" as const,
+        image: images.services.thesisAndDissertation,
       },
       {
         number: "०३",
         title: "साहित्य समीक्षा",
         description:
           "सम्बन्धित शैक्षिक साहित्य पहिचान, व्यवस्थित, मूल्याङ्कन तथा संश्लेषण गरी अनुसन्धानका लागि बलियो आधार तयार गर्न सहयोग।",
+        icon: "literature" as const,
+        image: images.services.literatureReview,
       },
       {
         number: "०४",
         title: "अनुसन्धान विधि",
         description:
           "उपयुक्त अनुसन्धान डिजाइन, विधि, नमुना छनोट, डेटा सङ्कलन प्रविधि तथा अनुसन्धान संरचना बुझ्न र विकास गर्न सहयोग।",
+        icon: "methodology" as const,
+        image: images.howItWorks.planTheResearch,
       },
       {
         number: "०५",
         title: "डेटा विश्लेषण",
         description:
           "उपयुक्त विश्लेषणात्मक विधिहरू प्रयोग गरी अनुसन्धान डेटा तयार, विश्लेषण, व्याख्या तथा प्रस्तुत गर्न सहयोग।",
+        icon: "data" as const,
+        image: images.services.dataAnalysis,
       },
       {
         number: "०६",
         title: "शैक्षिक लेखन सहयोग",
         description:
           "अनुसन्धान दस्तावेजको संरचना, स्पष्टता, संगठन तथा शैक्षिक प्रस्तुतिलाई सुधार गर्न सहयोग।",
+        icon: "writing" as const,
+        image: images.howItWorks.reviewAndRefine,
       },
       {
         number: "०७",
         title: "अनुसन्धान मार्गदर्शन",
         description:
           "अनुसन्धानको दिशा, विधि, विश्लेषण वा आगामी चरणबारे अन्योल हुँदा व्यावहारिक मार्गदर्शन प्राप्त गर्नुहोस्।",
+        icon: "guidance" as const,
+        image: images.whyChooseUs.clearGuidance,
       },
       {
         number: "०८",
         title: "परियोजना तथा शैक्षिक सहयोग",
         description:
           "विभिन्न विषय तथा शैक्षिक स्तरका शैक्षिक परियोजना र अनुसन्धानसम्बन्धी कार्यहरूमा सहयोग।",
+        icon: "project" as const,
+        image: images.services.projectAcademicSupport,
       },
     ],
 
@@ -147,123 +185,143 @@ export default async function ServicesPage({
 
   return (
     <>
-      {/* Hero */}
-      <section className="bg-background text-foreground transition-colors duration-300">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
-          <div className="max-w-4xl">
-            <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
-              {t.eyebrow}
-            </p>
+      {/* =========================================================
+          HERO
+      ========================================================= */}
+      <section className="relative overflow-hidden bg-background text-foreground transition-colors duration-300">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-40 top-10 h-[32rem] w-[32rem] rounded-full bg-purple-bright/10 blur-[120px]"
+        />
 
-            <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-40 bottom-0 h-80 w-80 rounded-full bg-purple-interactive/8 blur-[100px]"
+        />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:px-8 lg:py-24">
+          <div className="max-w-4xl">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-10 bg-accent" />
+
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">
+                {t.eyebrow}
+              </p>
+            </div>
+
+            <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               {t.title}
             </h1>
 
-            <p className="mt-8 max-w-3xl text-lg leading-8 text-muted sm:text-xl">
+            <p className="mt-7 max-w-3xl text-base leading-8 text-muted sm:text-lg">
               {t.intro}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Services */}
+      {/* =========================================================
+          SERVICES
+      ========================================================= */}
       <section className="bg-surface text-foreground transition-colors duration-300">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:py-28 lg:px-8">
+        <div className="mx-auto max-w-7xl px-6 py-14 sm:py-16 lg:px-8 lg:py-20">
           <div className="grid gap-5 md:grid-cols-2">
-            {t.services.map((service, index) => (
+            {t.services.map((service) => (
               <article
                 key={service.number}
-                className={`
+                className="
                   group relative overflow-hidden
-                  rounded-3xl p-8
-                  transition duration-300
+                  rounded-3xl border border-border
+                  bg-surface-elevated
+                  shadow-[var(--shadow-sm)]
+                  transition-all duration-300
                   hover:-translate-y-1
-                  sm:p-10
-                  ${
-                    index === 0
-                      ? `
-                        bg-primary
-                        text-white
-                        shadow-[var(--shadow-lg)]
-                      `
-                      : `
-                        theme-card
-                      `
-                  }
-                `}
+                  hover:border-purple-bright/40
+                  hover:shadow-[var(--shadow-lg)]
+                "
               >
-                <span
-                  aria-hidden="true"
-                  className={`
-                    absolute -right-3 -top-8
-                    text-[9rem]
-                    font-bold
-                    leading-none
-                    transition duration-500
-                    group-hover:scale-105
-                    ${
-                      index === 0
-                        ? "text-white/[0.04]"
-                        : "text-foreground/[0.04]"
-                    }
-                  `}
-                >
-                  {service.number}
-                </span>
+                {/* Image */}
+                <div className="relative h-52 overflow-hidden">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="
+                      object-cover
+                      transition-transform duration-700
+                      group-hover:scale-105
+                    "
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
 
-                <div className="relative">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-accent">
+                  <div
+                    className="
+                      absolute inset-0
+                      bg-gradient-to-t
+                      from-[#17033F]/80
+                      via-[#17033F]/15
+                      to-transparent
+                    "
+                  />
+
+                  {/* Number */}
+                  <div className="absolute left-5 top-5">
+                    <span
+                      className="
+                        inline-flex items-center
+                        rounded-full
+                        border border-white/20
+                        bg-black/20
+                        px-3 py-1.5
+                        text-xs font-bold
+                        text-white
+                        backdrop-blur-md
+                      "
+                    >
                       {service.number}
                     </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-7 sm:p-8">
+                  <div className="flex items-start justify-between gap-5">
+                    <ResearchIconContainer variant="card">
+                      <ResearchIcon name={service.icon} />
+                    </ResearchIconContainer>
 
                     <span
-                      className={`
-                        flex h-9 w-9
+                      className="
+                        flex h-9 w-9 shrink-0
                         items-center justify-center
                         rounded-full
-                        border
-                        text-sm
-                        transition
-                        ${
-                          index === 0
-                            ? `
-                              border-white/15
-                              text-white/60
-                              group-hover:border-accent
-                              group-hover:text-accent
-                            `
-                            : `
-                              border-border
-                              text-muted
-                              group-hover:border-accent
-                              group-hover:text-accent
-                            `
-                        }
-                      `}
+                        border border-border
+                        text-sm text-muted
+                        transition-all duration-300
+                        group-hover:border-purple-bright
+                        group-hover:text-purple-bright
+                      "
                     >
                       ↗
                     </span>
                   </div>
 
-                  <h2 className="mt-12 max-w-md text-2xl font-bold sm:text-3xl">
+                  <h2 className="mt-6 max-w-lg text-2xl font-bold leading-tight text-foreground sm:text-3xl">
                     {service.title}
                   </h2>
 
-                  <p
-                    className={`
-                      mt-4 max-w-lg leading-7
-                      ${
-                        index === 0
-                          ? "text-white/65"
-                          : "text-muted"
-                      }
-                    `}
-                  >
+                  <p className="mt-4 max-w-xl leading-7 text-muted">
                     {service.description}
                   </p>
 
-                  <div className="mt-8 h-px w-10 bg-accent transition-all duration-300 group-hover:w-20" />
+                  <div
+                    className="
+                      mt-7 h-px w-10
+                      bg-accent
+                      transition-all duration-300
+                      group-hover:w-20
+                    "
+                  />
                 </div>
               </article>
             ))}
@@ -271,48 +329,87 @@ export default async function ServicesPage({
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-background px-6 pb-24 text-foreground transition-colors duration-300 sm:pb-28 lg:px-8">
+      {/* =========================================================
+          FINAL CTA
+      ========================================================= */}
+      <section className="bg-background px-6 pb-14 text-foreground transition-colors duration-300 sm:pb-16 lg:px-8 lg:pb-20">
         <div className="mx-auto max-w-7xl">
-          <div className="relative overflow-hidden rounded-4xl bg-primary px-7 py-16 text-center text-white sm:px-12 sm:py-20 lg:px-20">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent-soft blur-3xl"
-            />
+          <div
+            className="
+              grid overflow-hidden
+              rounded-[2rem]
+              border border-border
+              bg-surface-elevated
+              shadow-[var(--shadow-lg)]
+              lg:grid-cols-[0.95fr_1.05fr]
+            "
+          >
+            {/* CTA Image */}
+            <div className="relative min-h-[320px] lg:min-h-[430px]">
+              <Image
+                src={images.services.cta}
+                alt="Research guidance and support"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
 
-            <div className="relative mx-auto max-w-3xl">
-              <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent">
-                {t.ctaEyebrow}
-              </p>
-
-              <h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl">
-                {t.ctaTitle}
-              </h2>
-
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/65">
-                {t.ctaDescription}
-              </p>
-
-              <Link
-                href={`/${locale}/contact`}
+              <div
                 className="
-                  mt-9
-                  inline-flex
-                  items-center
-                  gap-3
-                  rounded-full
-                  bg-accent
-                  px-7 py-3.5
-                  text-sm font-semibold
-                  text-primary
-                  transition-all duration-300
-                  hover:-translate-y-0.5
-                  hover:bg-accent-hover
+                  absolute inset-0
+                  bg-gradient-to-t
+                  from-[#17033F]/80
+                  via-[#17033F]/20
+                  to-transparent
                 "
-              >
-                {t.ctaButton}
-                <span aria-hidden="true">→</span>
-              </Link>
+              />
+
+              <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8">
+                <div
+                  className="
+                    inline-flex items-center gap-2
+                    rounded-full
+                    border border-white/20
+                    bg-black/20
+                    px-4 py-2
+                    text-xs font-semibold
+                    text-white
+                    backdrop-blur-md
+                  "
+                >
+                  <span className="h-2 w-2 rounded-full bg-[#D100D1]" />
+                  {locale === "en"
+                    ? "Research-focused support"
+                    : "अनुसन्धान केन्द्रित सहयोग"}
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Content */}
+            <div className="flex items-center p-8 sm:p-10 lg:p-14">
+              <div className="max-w-xl">
+                <div className="flex items-center gap-3">
+                  <span className="h-px w-10 bg-accent" />
+
+                  <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">
+                    {t.ctaEyebrow}
+                  </p>
+                </div>
+
+                <h2 className="mt-6 text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+                  {t.ctaTitle}
+                </h2>
+
+                <p className="mt-5 text-base leading-8 text-muted sm:text-lg">
+                  {t.ctaDescription}
+                </p>
+
+                <div className="mt-8">
+                  <Button href={`/${locale}/contact`}>
+                    {t.ctaButton}
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

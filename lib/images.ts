@@ -2,18 +2,48 @@ export const images = {
   logo: "/images/logo.png",
 
   hero: {
-  research: "/images/hero-research.png",
-  featureIllustrations:
-    "/images/hero/hero-feature-illustrations.png",
-},
+    research: "/images/hero-research.png",
+    featureIllustrations:
+      "/images/hero/hero-feature-illustrations.png",
+  },
 
   services: {
-    academicSupport: "/images/services/academic-support.jpg",
     proposalSupport: "/images/services/proposal-support.jpg",
     thesisAndDissertation:
       "/images/services/thesis-and-dissertation.jpg",
-    dataAnalysis: "/images/services/data-analysis.jpg",
     literatureReview: "/images/services/literature-review.jpg",
+    methodology: "/images/services/other-academic-areas.jpg",
+    dataAnalysis: "/images/services/data-analysis.jpg",
+    academicWriting: "/images/services/computer-science.jpg",
+    researchGuidance: "/images/services/education.jpg",
+    projectAcademicSupport:
+      "/images/services/business-management.jpg",
+    extra: "/images/services/extra-image.jpg",
+    cta: "/images/research-planning.jpg",
+  },
+
+  subjects: {
+    businessManagement:
+      "/images/subjects/business-management.jpg",
+    financeAccounting:
+      "/images/subjects/finance-accounting.jpg",
+    informationTechnology:
+      "/images/subjects/information-technology.jpg",
+    computerScience:
+      "/images/subjects/computer-science.jpg",
+    socialSciences:
+      "/images/subjects/social-sciences.jpg",
+    education:
+      "/images/subjects/education.jpg",
+    healthPublicHealth:
+      "/images/subjects/health-public-health.jpg",
+    engineeringTechnology:
+      "/images/subjects/engineering-technology.jpg",
+    hospitalityTourism:
+      "/images/subjects/hospitality-tourism.jpg",
+    otherAcademicAreas:
+      "/images/subjects/other-academic-areas.jpg",
+      // cta: "/images/make-journey-clear.png",
   },
 
   howItWorks: {
