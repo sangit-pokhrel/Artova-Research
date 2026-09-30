@@ -340,7 +340,7 @@ export default function Testimonials({
 
               return (
                 <article
-                  key={`${testimonial.name}`}
+                  key={`${testimonial.name}-${index}`}
                   onMouseEnter={() => setActiveIndex(index)}
                   onMouseLeave={() => setActiveIndex(null)}
                   className={`

@@ -29,21 +29,20 @@ export default function Header() {
   const locale = pathname.split("/")[1] === "ne" ? "ne" : "en";
   const t = translations[locale];
 
+  const homeHref = `/${locale}`;
+
   const closeMenu = () => {
     setIsMenuOpen(false);
     setIsExploreOpen(false);
   };
 
-  /*
-   * Switch navbar to glass mode after
-   * scrolling through roughly the middle
-   * of the Hero section.
-   */
+  /* =========================================================
+     SCROLL DETECTION
+     ========================================================= */
+
   useEffect(() => {
     const handleScroll = () => {
-      const threshold = window.innerHeight * 0.5;
-
-      setIsScrolled(window.scrollY > threshold);
+      setIsScrolled(window.scrollY > window.innerHeight * 0.5);
     };
 
     handleScroll();
@@ -57,9 +56,10 @@ export default function Header() {
     };
   }, []);
 
-  /*
-   * Close Explore dropdown when clicking outside.
-   */
+  /* =========================================================
+     CLOSE EXPLORE WHEN CLICKING OUTSIDE
+     ========================================================= */
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -77,6 +77,29 @@ export default function Header() {
     };
   }, []);
 
+  /* =========================================================
+     LOGO → HOME TOP
+     ========================================================= */
+
+  const handleLogoClick = () => {
+    closeMenu();
+
+    /*
+     * If already on the home page, simply return
+     * to the very top instead of navigating again.
+     */
+    if (pathname === homeHref) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  /* =========================================================
+     ACTIVE ROUTE
+     ========================================================= */
+
   const isActive = (path: string) => {
     const href = `/${locale}${path ? `/${path}` : ""}`;
 
@@ -84,6 +107,10 @@ export default function Header() {
       ? pathname === `/${locale}`
       : pathname.startsWith(href);
   };
+
+  /* =========================================================
+     EXPLORE ITEMS
+     ========================================================= */
 
   const exploreItems = [
     {
@@ -102,10 +129,12 @@ export default function Header() {
           strokeWidth="1.7"
         >
           <circle cx="11" cy="11" r="6.5" />
+
           <path
             d="m16 16 4.5 4.5"
             strokeLinecap="round"
           />
+
           <path
             d="M8.5 11h5M11 8.5v5"
             strokeLinecap="round"
@@ -113,6 +142,7 @@ export default function Header() {
         </svg>
       ),
     },
+
     {
       label: locale === "en" ? "Resources" : "स्रोत सामग्री",
       description:
@@ -132,6 +162,7 @@ export default function Header() {
             d="M5 4.5A2.5 2.5 0 0 1 7.5 2H19v18H7.5A2.5 2.5 0 0 1 5 17.5v-13Z"
             strokeLinejoin="round"
           />
+
           <path
             d="M5 5h11M9 8h6M9 12h6"
             strokeLinecap="round"
@@ -139,6 +170,7 @@ export default function Header() {
         </svg>
       ),
     },
+
     {
       label: locale === "en" ? "FAQ" : "सामान्य प्रश्नहरू",
       description:
@@ -174,87 +206,157 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5 lg:px-6">
       <div className="mx-auto max-w-7xl">
+
+        {/* =======================================================
+            GLASS NAVBAR
+            ======================================================= */}
+
         <div
           className={`
-            relative rounded-2xl
+            relative
+            overflow-visible
+            rounded-2xl
             border
             px-4
-            transition-all duration-500 ease-out
-            sm:px-5 lg:px-6
+            transition-all
+            duration-500
+            ease-out
+            sm:px-5
+            lg:px-6
+
             ${
               isScrolled
-                ? `
-                  border-white/20
-                  bg-white/10
-                  shadow-[var(--shadow-lg)]
-                  backdrop-blur-xl
-                  dark:border-white/15
-                  dark:bg-black/10
-                `
-                : `
-                  border-border
-                  bg-surface-elevated
-                  shadow-[var(--shadow-md)]
-                `
+  ? `
+      border-white/10
+      bg-background/5
+      shadow-[0_8px_25px_rgba(15,23,42,0.02)]
+      backdrop-blur-md
+    `
+  : `
+      border-white/30
+      bg-background/45
+      shadow-[0_8px_25px_rgba(15,23,42,0.04)]
+      backdrop-blur-2xl
+    `
             }
           `}
         >
-          <div className="flex h-[68px] items-center justify-between">
 
-            {/* =====================================================
-                LOGO
-                ===================================================== */}
+          {/* =====================================================
+              SUBTLE TOP HIGHLIGHT
+              ===================================================== */}
+
+          <div
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute
+              inset-x-5
+              top-0
+              h-px
+              bg-gradient-to-r
+              from-transparent
+              via-white/70
+              to-transparent
+              opacity-60
+            "
+          />
+
+          {/* =====================================================
+              MAIN NAVBAR
+              ===================================================== */}
+
+          <div
+            className="
+              grid
+              h-[68px]
+              grid-cols-[1fr_auto_1fr]
+              items-center
+            "
+          >
+
+            {/* ===================================================
+                LOGO — LEFT
+                =================================================== */}
 
             <Link
-              href={`/${locale}`}
-              onClick={closeMenu}
-              className="group flex items-center gap-3"
+              href={homeHref}
+              onClick={handleLogoClick}
+              className="
+                group
+                flex
+                items-center
+                gap-3
+                justify-self-start
+              "
             >
-              <span className="relative flex h-14 w-14 shrink-0 items-center justify-center">
+              <span
+                className="
+                  relative
+                  flex
+                  h-14
+                  w-14
+                  shrink-0
+                  items-center
+                  justify-center
+                "
+              >
                 <Image
                   src="/images/logo.png"
-                  alt=""
+                  alt="Artova Research"
                   width={76}
                   height={76}
                   priority
-                  className="h-14 w-14 object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+                  className="
+                    h-14
+                    w-14
+                    object-contain
+                    transition-transform
+                    duration-300
+                    group-hover:scale-[1.03]
+                  "
                 />
               </span>
 
-              <span className="flex flex-col justify-center leading-none">
+              <span
+                className="
+                  flex
+                  flex-col
+                  justify-center
+                  leading-none
+                "
+              >
                 <span
-                  className={`
+                  className="
                     text-[19px]
                     font-extrabold
                     tracking-[0.12em]
-                    transition-colors duration-300
-                    ${
-                      isScrolled
-                        ? "text-white dark:text-white"
-                        : "text-foreground"
-                    }
-                  `}
+                    text-foreground
+                  "
                 >
                   ARTOVA
                 </span>
 
-                <span className="mt-0.5 text-[11px] font-medium tracking-[0.32em] text-accent">
+                <span
+                  className="
+                    mt-0.5
+                    text-[11px]
+                    font-medium
+                    tracking-[0.32em]
+                    text-accent
+                  "
+                >
                   RESEARCH
                 </span>
 
                 <span
-                  className={`
+                  className="
                     mt-1
                     text-[6.5px]
                     font-medium
                     tracking-[0.18em]
-                    transition-colors duration-300
-                    ${
-                      isScrolled
-                        ? "text-white/65"
-                        : "text-muted"
-                    }
-                  `}
+                    text-muted
+                  "
                 >
                   IDEAS{" "}
                   <span className="text-accent">|</span>{" "}
@@ -265,11 +367,19 @@ export default function Header() {
               </span>
             </Link>
 
-            {/* =====================================================
-                DESKTOP NAVIGATION
-                ===================================================== */}
+            {/* ===================================================
+                DESKTOP NAVIGATION — CENTER
+                =================================================== */}
 
-            <nav className="hidden items-center gap-1 md:flex">
+            <nav
+              className="
+                hidden
+                items-center
+                gap-1
+                justify-self-center
+                md:flex
+              "
+            >
               {navigation.map((item) => {
                 const href = `/${locale}${item.path ? `/${item.path}` : ""}`;
 
@@ -280,16 +390,20 @@ export default function Header() {
                     key={item.key}
                     href={href}
                     className={`
-                      group relative rounded-xl
-                      px-4 py-2.5
-                      text-sm font-semibold
-                      transition-all duration-300
+                      group
+                      relative
+                      rounded-xl
+                      px-4
+                      py-2.5
+                      text-sm
+                      font-semibold
+                      transition-all
+                      duration-300
+
                       ${
                         active
                           ? "text-accent"
-                          : isScrolled
-                            ? "text-white/90 hover:bg-white/10 hover:text-white dark:text-white/90"
-                            : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                          : "text-foreground hover:bg-foreground/5 hover:text-foreground"
                       }
                     `}
                   >
@@ -297,11 +411,21 @@ export default function Header() {
 
                     <span
                       className={`
-                        absolute bottom-1 left-1/2
-                        h-0.5 -translate-x-1/2
-                        rounded-full bg-accent
-                        transition-all duration-300
-                        ${active ? "w-5" : "w-0 group-hover:w-5"}
+                        absolute
+                        bottom-1
+                        left-1/2
+                        h-0.5
+                        -translate-x-1/2
+                        rounded-full
+                        bg-accent
+                        transition-all
+                        duration-300
+
+                        ${
+                          active
+                            ? "w-5"
+                            : "w-0 group-hover:w-5"
+                        }
                       `}
                     />
                   </Link>
@@ -312,7 +436,10 @@ export default function Header() {
                   EXPLORE
                   ================================================= */}
 
-              <div ref={exploreRef} className="relative">
+              <div
+                ref={exploreRef}
+                className="relative"
+              >
                 <button
                   type="button"
                   onClick={() =>
@@ -320,16 +447,22 @@ export default function Header() {
                   }
                   aria-expanded={isExploreOpen}
                   className={`
-                    group flex items-center gap-2
-                    rounded-xl px-4 py-2.5
-                    text-sm font-semibold
-                    transition-all duration-300
+                    group
+                    flex
+                    items-center
+                    gap-2
+                    rounded-xl
+                    px-4
+                    py-2.5
+                    text-sm
+                    font-semibold
+                    transition-all
+                    duration-300
+
                     ${
                       isExploreOpen
                         ? "bg-accent-soft text-accent"
-                        : isScrolled
-                          ? "text-white/90 hover:bg-white/10 hover:text-white"
-                          : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                        : "text-foreground hover:bg-foreground/5 hover:text-foreground"
                     }
                   `}
                 >
@@ -341,9 +474,16 @@ export default function Header() {
                     viewBox="0 0 20 20"
                     fill="none"
                     className={`
-                      h-4 w-4
-                      transition-transform duration-300
-                      ${isExploreOpen ? "rotate-180" : ""}
+                      h-4
+                      w-4
+                      transition-transform
+                      duration-300
+
+                      ${
+                        isExploreOpen
+                          ? "rotate-180"
+                          : ""
+                      }
                     `}
                     stroke="currentColor"
                     strokeWidth="1.7"
@@ -362,10 +502,14 @@ export default function Header() {
 
                 <div
                   className={`
-                    absolute right-0 top-[calc(100%+14px)]
+                    absolute
+                    right-0
+                    top-[calc(100%+14px)]
                     w-[310px]
                     origin-top-right
-                    transition-all duration-200
+                    transition-all
+                    duration-200
+
                     ${
                       isExploreOpen
                         ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
@@ -377,14 +521,29 @@ export default function Header() {
                     className="
                       overflow-hidden
                       rounded-2xl
-                      border border-border
+                      border
+                      border-border
                       bg-surface-elevated
                       p-2
                       shadow-[var(--shadow-lg)]
                     "
                   >
-                    <div className="px-4 pb-2 pt-3">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+                    <div
+                      className="
+                        px-4
+                        pb-2
+                        pt-3
+                      "
+                    >
+                      <p
+                        className="
+                          text-[10px]
+                          font-bold
+                          uppercase
+                          tracking-[0.22em]
+                          text-accent
+                        "
+                      >
                         {locale === "en"
                           ? "Explore Artova"
                           : "Artova अन्वेषण गर्नुहोस्"}
@@ -398,20 +557,31 @@ export default function Header() {
                           href={item.href}
                           onClick={closeMenu}
                           className="
-                            group flex items-center gap-4
-                            rounded-xl px-4 py-3
-                            transition-all duration-200
+                            group
+                            flex
+                            items-center
+                            gap-4
+                            rounded-xl
+                            px-4
+                            py-3
+                            transition-all
+                            duration-200
                             hover:bg-accent-soft
                           "
                         >
                           <span
                             className="
-                              flex h-10 w-10 shrink-0
-                              items-center justify-center
+                              flex
+                              h-10
+                              w-10
+                              shrink-0
+                              items-center
+                              justify-center
                               rounded-xl
                               bg-accent-soft
                               text-accent
-                              transition-all duration-200
+                              transition-all
+                              duration-200
                               group-hover:bg-accent
                               group-hover:text-primary
                             "
@@ -420,11 +590,25 @@ export default function Header() {
                           </span>
 
                           <span className="min-w-0">
-                            <span className="block text-sm font-bold text-foreground">
+                            <span
+                              className="
+                                block
+                                text-sm
+                                font-bold
+                                text-foreground
+                              "
+                            >
                               {item.label}
                             </span>
 
-                            <span className="mt-0.5 block text-xs text-muted">
+                            <span
+                              className="
+                                mt-0.5
+                                block
+                                text-xs
+                                text-muted
+                              "
+                            >
                               {item.description}
                             </span>
                           </span>
@@ -434,7 +618,8 @@ export default function Header() {
                               ml-auto
                               text-accent
                               opacity-0
-                              transition-all duration-200
+                              transition-all
+                              duration-200
                               group-hover:translate-x-1
                               group-hover:opacity-100
                             "
@@ -447,43 +632,55 @@ export default function Header() {
                   </div>
                 </div>
               </div>
+            </nav>
 
-              {/* =================================================
-                  CONTROLS
-                  ================================================= */}
+            {/* ===================================================
+                RIGHT — LANGUAGE / THEME / CONTACT
+                =================================================== */}
+
+            <div
+              className="
+                hidden
+                items-center
+                gap-2
+                justify-self-end
+                md:flex
+              "
+            >
+              <LanguageSwitcher />
+
+              <ThemeToggle />
 
               <div
-                className={`
-                  ml-3 flex items-center gap-2
-                  border-l pl-3
-                  transition-colors duration-300
-                  ${
-                    isScrolled
-                      ? "border-white/20"
-                      : "border-border"
-                  }
-                `}
+                className="
+                  ml-1
+                  border-l
+                  border-border/70
+                  pl-3
+                "
               >
-                <LanguageSwitcher />
-
-                <ThemeToggle />
-
-                {/* MASTER CONTACT BUTTON */}
-
                 <Button
                   href={`/${locale}/contact`}
-                  className="ml-1 px-5 py-2.5"
+                  className="px-5 py-2.5"
                 >
                   {t.navigation.contact}
                 </Button>
               </div>
-            </nav>
+            </div>
 
-            {/* =====================================================
+            {/* ===================================================
                 MOBILE CONTROLS
-                ===================================================== */}
+                =================================================== */}
 
-            <div className="flex items-center gap-2 md:hidden">
+            <div
+              className="
+                flex
+                items-center
+                gap-2
+                justify-self-end
+                md:hidden
+              "
+            >
               <LanguageSwitcher />
 
               <ThemeToggle />
@@ -499,46 +696,83 @@ export default function Header() {
                     : "Open navigation menu"
                 }
                 aria-expanded={isMenuOpen}
-                className={`
-                  group flex h-10 w-10
-                  items-center justify-center
+                className="
+                  group
+                  flex
+                  h-10
+                  w-10
+                  items-center
+                  justify-center
                   rounded-xl
                   border
-                  transition-all duration-300
-                  ${
-                    isScrolled
-                      ? "border-white/20 text-white hover:border-accent hover:bg-white/10 hover:text-accent"
-                      : "border-border text-foreground hover:border-accent hover:bg-accent-soft hover:text-accent"
-                  }
-                `}
+                  border-border
+                  text-foreground
+                  transition-all
+                  duration-300
+                  hover:border-accent
+                  hover:bg-accent-soft
+                  hover:text-accent
+                "
               >
-                <div className="relative h-4 w-5">
+                <div
+                  className="
+                    relative
+                    h-4
+                    w-5
+                  "
+                >
                   <span
                     className={`
-                      absolute left-0 top-0
-                      h-0.5 w-5 rounded-full
+                      absolute
+                      left-0
+                      top-0
+                      h-0.5
+                      w-5
+                      rounded-full
                       bg-current
-                      transition-all duration-300
-                      ${isMenuOpen ? "top-2 rotate-45" : ""}
+                      transition-all
+                      duration-300
+
+                      ${
+                        isMenuOpen
+                          ? "top-2 rotate-45"
+                          : ""
+                      }
                     `}
                   />
 
                   <span
                     className={`
-                      absolute left-0 top-2
-                      h-0.5 w-5 rounded-full
+                      absolute
+                      left-0
+                      top-2
+                      h-0.5
+                      w-5
+                      rounded-full
                       bg-current
-                      transition-all duration-300
-                      ${isMenuOpen ? "opacity-0" : ""}
+                      transition-all
+                      duration-300
+
+                      ${
+                        isMenuOpen
+                          ? "opacity-0"
+                          : ""
+                      }
                     `}
                   />
 
                   <span
                     className={`
-                      absolute left-0 top-4
-                      h-0.5 w-5 rounded-full
+                      absolute
+                      left-0
+                      top-4
+                      h-0.5
+                      w-5
+                      rounded-full
                       bg-current
-                      transition-all duration-300
+                      transition-all
+                      duration-300
+
                       ${
                         isMenuOpen
                           ? "top-2 -rotate-45"
@@ -558,8 +792,10 @@ export default function Header() {
           <div
             className={`
               overflow-hidden
-              transition-all duration-300
+              transition-all
+              duration-300
               md:hidden
+
               ${
                 isMenuOpen
                   ? "max-h-[600px] border-t border-border opacity-100"
@@ -579,10 +815,16 @@ export default function Header() {
                     href={href}
                     onClick={closeMenu}
                     className={`
-                      flex items-center justify-between
-                      rounded-xl px-4 py-3.5
-                      text-sm font-semibold
+                      flex
+                      items-center
+                      justify-between
+                      rounded-xl
+                      px-4
+                      py-3.5
+                      text-sm
+                      font-semibold
                       transition-all
+
                       ${
                         active
                           ? "bg-accent-soft text-accent"
@@ -595,13 +837,22 @@ export default function Header() {
                     </span>
 
                     {active && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                      <span
+                        className="
+                          h-1.5
+                          w-1.5
+                          rounded-full
+                          bg-accent
+                        "
+                      />
                     )}
                   </Link>
                 );
               })}
 
-              {/* MOBILE EXPLORE */}
+              {/* =================================================
+                  MOBILE EXPLORE
+                  ================================================= */}
 
               <button
                 type="button"
@@ -609,9 +860,15 @@ export default function Header() {
                   setIsExploreOpen((open) => !open)
                 }
                 className="
-                  flex w-full items-center justify-between
-                  rounded-xl px-4 py-3.5
-                  text-sm font-semibold
+                  flex
+                  w-full
+                  items-center
+                  justify-between
+                  rounded-xl
+                  px-4
+                  py-3.5
+                  text-sm
+                  font-semibold
                   text-foreground/80
                   transition-all
                   hover:bg-foreground/5
@@ -627,9 +884,17 @@ export default function Header() {
                   viewBox="0 0 20 20"
                   fill="none"
                   className={`
-                    h-4 w-4 text-accent
-                    transition-transform duration-300
-                    ${isExploreOpen ? "rotate-180" : ""}
+                    h-4
+                    w-4
+                    text-accent
+                    transition-transform
+                    duration-300
+
+                    ${
+                      isExploreOpen
+                        ? "rotate-180"
+                        : ""
+                    }
                   `}
                   stroke="currentColor"
                   strokeWidth="1.7"
@@ -643,16 +908,29 @@ export default function Header() {
               </button>
 
               {isExploreOpen && (
-                <div className="ml-3 space-y-1 border-l border-accent/30 pl-3">
+                <div
+                  className="
+                    ml-3
+                    space-y-1
+                    border-l
+                    border-accent/30
+                    pl-3
+                  "
+                >
                   {exploreItems.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
                       onClick={closeMenu}
                       className="
-                        flex items-center gap-3
-                        rounded-xl px-3 py-3
-                        text-sm text-foreground/70
+                        flex
+                        items-center
+                        gap-3
+                        rounded-xl
+                        px-3
+                        py-3
+                        text-sm
+                        text-foreground/70
                         transition
                         hover:bg-accent-soft
                         hover:text-accent
@@ -668,7 +946,9 @@ export default function Header() {
                 </div>
               )}
 
-              {/* MOBILE CONTACT — SAME MASTER BUTTON */}
+              {/* =================================================
+                  MOBILE CONTACT
+                  ================================================= */}
 
               <Button
                 href={`/${locale}/contact`}
