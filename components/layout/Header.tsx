@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -22,6 +23,7 @@ export default function Header() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
+  const [isMobileExploreOpen, setIsMobileExploreOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const exploreRef = useRef<HTMLDivElement>(null);
@@ -34,6 +36,7 @@ export default function Header() {
   const closeMenu = () => {
     setIsMenuOpen(false);
     setIsExploreOpen(false);
+    setIsMobileExploreOpen(false);
   };
 
   /* =========================================================
@@ -218,26 +221,26 @@ export default function Header() {
             rounded-2xl
             border
             px-3
-transition-all
-duration-500
-ease-out
-sm:px-5
-lg:px-6
+            transition-all
+            duration-500
+            ease-out
+            sm:px-5
+            lg:px-6
 
             ${
               isScrolled
-  ? `
-      border-white/10
-      bg-background/5
-      shadow-[0_8px_25px_rgba(15,23,42,0.02)]
-      backdrop-blur-md
-    `
-  : `
-      border-white/30
-      bg-background/45
-      shadow-[0_8px_25px_rgba(15,23,42,0.04)]
-      backdrop-blur-2xl
-    `
+                ? `
+                  border-white/10
+                  bg-background/5
+                  shadow-[0_8px_25px_rgba(15,23,42,0.02)]
+                  backdrop-blur-md
+                `
+                : `
+                  border-white/30
+                  bg-background/45
+                  shadow-[0_8px_25px_rgba(15,23,42,0.04)]
+                  backdrop-blur-2xl
+                `
             }
           `}
         >
@@ -267,16 +270,16 @@ lg:px-6
               ===================================================== */}
 
           <div
-  className="
-    flex
-    h-[64px]
-    items-center
-    justify-between
-    sm:h-[68px]
-    md:grid
-    md:grid-cols-[1fr_auto_1fr]
-  "
->
+            className="
+              flex
+              h-[64px]
+              items-center
+              justify-between
+              sm:h-[68px]
+              md:grid
+              md:grid-cols-[1fr_auto_1fr]
+            "
+          >
 
             {/* ===================================================
                 LOGO — LEFT
@@ -298,12 +301,12 @@ lg:px-6
                   relative
                   flex
                   h-11
-w-11
-sm:h-14
-sm:w-14
+                  w-11
                   shrink-0
                   items-center
                   justify-center
+                  sm:h-14
+                  sm:w-14
                 "
               >
                 <Image
@@ -314,13 +317,13 @@ sm:w-14
                   priority
                   className="
                     h-11
-w-11
-sm:h-14
-sm:w-14
+                    w-11
                     object-contain
                     transition-transform
                     duration-300
                     group-hover:scale-[1.03]
+                    sm:h-14
+                    sm:w-14
                   "
                 />
               </span>
@@ -335,10 +338,11 @@ sm:w-14
               >
                 <span
                   className="
-text-[16px] sm:text-[19px]         
-           font-extrabold
+                    text-[16px]
+                    font-extrabold
                     tracking-[0.12em]
                     text-foreground
+                    sm:text-[19px]
                   "
                 >
                   ARTOVA
@@ -347,10 +351,11 @@ text-[16px] sm:text-[19px]
                 <span
                   className="
                     mt-0.5
-text-[9px] sm:text-[11px]
+                    text-[9px]
                     font-medium
                     tracking-[0.32em]
                     text-accent
+                    sm:text-[11px]
                   "
                 >
                   RESEARCH
@@ -457,7 +462,7 @@ text-[9px] sm:text-[11px]
                     group
                     flex
                     items-center
-gap-1.5 sm:gap-2
+                    gap-1.5 sm:gap-2
                     rounded-xl
                     px-4
                     py-2.5
@@ -721,73 +726,17 @@ gap-1.5 sm:gap-2
                   hover:text-accent
                 "
               >
-                <div
-                  className="
-                    relative
-                    h-4
-                    w-5
-                  "
-                >
-                  <span
-                    className={`
-                      absolute
-                      left-0
-                      top-0
-                      h-0.5
-                      w-5
-                      rounded-full
-                      bg-current
-                      transition-all
-                      duration-300
-
-                      ${
-                        isMenuOpen
-                          ? "top-2 rotate-45"
-                          : ""
-                      }
-                    `}
+                {isMenuOpen ? (
+                  <X
+                    className="h-6 w-6"
+                    strokeWidth={1.8}
                   />
-
-                  <span
-                    className={`
-                      absolute
-                      left-0
-                      top-2
-                      h-0.5
-                      w-5
-                      rounded-full
-                      bg-current
-                      transition-all
-                      duration-300
-
-                      ${
-                        isMenuOpen
-                          ? "opacity-0"
-                          : ""
-                      }
-                    `}
+                ) : (
+                  <Menu
+                    className="h-6 w-6"
+                    strokeWidth={1.8}
                   />
-
-                  <span
-                    className={`
-                      absolute
-                      left-0
-                      top-4
-                      h-0.5
-                      w-5
-                      rounded-full
-                      bg-current
-                      transition-all
-                      duration-300
-
-                      ${
-                        isMenuOpen
-                          ? "top-2 -rotate-45"
-                          : ""
-                      }
-                    `}
-                  />
-                </div>
+                )}
               </button>
             </div>
           </div>
@@ -810,8 +759,8 @@ gap-1.5 sm:gap-2
               }
             `}
           >
-<nav className="space-y-1 py-3 sm:py-4">
-                {navigation.map((item) => {
+            <nav className="space-y-1 py-3 sm:py-4">
+              {navigation.map((item) => {
                 const href = `/${locale}${item.path ? `/${item.path}` : ""}`;
 
                 const active = isActive(item.path);
@@ -827,9 +776,9 @@ gap-1.5 sm:gap-2
                       justify-between
                       rounded-xl
                       px-3
-py-3
-sm:px-4
-sm:py-3.5
+                      py-3
+                      sm:px-4
+                      sm:py-3.5
                       text-sm
                       font-semibold
                       transition-all
@@ -866,7 +815,7 @@ sm:py-3.5
               <button
                 type="button"
                 onClick={() =>
-                  setIsExploreOpen((open) => !open)
+                  setIsMobileExploreOpen((open) => !open)
                 }
                 className="
                   flex
@@ -882,6 +831,7 @@ sm:py-3.5
                   transition-all
                   hover:bg-foreground/5
                 "
+                aria-expanded={isMobileExploreOpen}
               >
                 <span>
                   {locale === "en"
@@ -900,7 +850,7 @@ sm:py-3.5
                     duration-300
 
                     ${
-                      isExploreOpen
+                      isMobileExploreOpen
                         ? "rotate-180"
                         : ""
                     }
@@ -916,7 +866,7 @@ sm:py-3.5
                 </svg>
               </button>
 
-              {isExploreOpen && (
+              {isMobileExploreOpen && (
                 <div
                   className="
                     ml-3
