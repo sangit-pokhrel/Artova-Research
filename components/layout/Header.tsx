@@ -204,7 +204,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5 lg:px-6">
+    <header className="sticky top-0 z-50 px-2.5 pt-2.5 sm:px-4 sm:pt-3 lg:px-6">
       <div className="mx-auto max-w-7xl">
 
         {/* =======================================================
@@ -217,12 +217,12 @@ export default function Header() {
             overflow-visible
             rounded-2xl
             border
-            px-4
-            transition-all
-            duration-500
-            ease-out
-            sm:px-5
-            lg:px-6
+            px-3
+transition-all
+duration-500
+ease-out
+sm:px-5
+lg:px-6
 
             ${
               isScrolled
@@ -267,13 +267,16 @@ export default function Header() {
               ===================================================== */}
 
           <div
-            className="
-              grid
-              h-[68px]
-              grid-cols-[1fr_auto_1fr]
-              items-center
-            "
-          >
+  className="
+    flex
+    h-[64px]
+    items-center
+    justify-between
+    sm:h-[68px]
+    md:grid
+    md:grid-cols-[1fr_auto_1fr]
+  "
+>
 
             {/* ===================================================
                 LOGO — LEFT
@@ -294,8 +297,10 @@ export default function Header() {
                 className="
                   relative
                   flex
-                  h-14
-                  w-14
+                  h-11
+w-11
+sm:h-14
+sm:w-14
                   shrink-0
                   items-center
                   justify-center
@@ -308,8 +313,10 @@ export default function Header() {
                   height={76}
                   priority
                   className="
-                    h-14
-                    w-14
+                    h-11
+w-11
+sm:h-14
+sm:w-14
                     object-contain
                     transition-transform
                     duration-300
@@ -328,8 +335,8 @@ export default function Header() {
               >
                 <span
                   className="
-                    text-[19px]
-                    font-extrabold
+text-[16px] sm:text-[19px]         
+           font-extrabold
                     tracking-[0.12em]
                     text-foreground
                   "
@@ -340,7 +347,7 @@ export default function Header() {
                 <span
                   className="
                     mt-0.5
-                    text-[11px]
+text-[9px] sm:text-[11px]
                     font-medium
                     tracking-[0.32em]
                     text-accent
@@ -450,7 +457,7 @@ export default function Header() {
                     group
                     flex
                     items-center
-                    gap-2
+gap-1.5 sm:gap-2
                     rounded-xl
                     px-4
                     py-2.5
@@ -803,8 +810,8 @@ export default function Header() {
               }
             `}
           >
-            <nav className="space-y-1 py-4">
-              {navigation.map((item) => {
+<nav className="space-y-1 py-3 sm:py-4">
+                {navigation.map((item) => {
                 const href = `/${locale}${item.path ? `/${item.path}` : ""}`;
 
                 const active = isActive(item.path);
@@ -819,8 +826,10 @@ export default function Header() {
                       items-center
                       justify-between
                       rounded-xl
-                      px-4
-                      py-3.5
+                      px-3
+py-3
+sm:px-4
+sm:py-3.5
                       text-sm
                       font-semibold
                       transition-all

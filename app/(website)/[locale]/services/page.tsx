@@ -70,7 +70,7 @@ const content = {
         description:
           "Receive practical guidance when you are unsure about your research direction, methodology, analysis, or next steps.",
         icon: "guidance" as const,
-        image: images.whyChooseUs.clearGuidance,
+        image: images.whyChooseUs.researchGuidance,
       },
       {
         number: "08",
@@ -78,7 +78,7 @@ const content = {
         description:
           "Support for academic projects and research-related work across different subjects and academic levels.",
         icon: "project" as const,
-        image: images.services.projectAcademicSupport,
+image: images.services.proposalSupport,
       },
     ],
 
@@ -150,7 +150,7 @@ const content = {
         description:
           "अनुसन्धानको दिशा, विधि, विश्लेषण वा आगामी चरणबारे अन्योल हुँदा व्यावहारिक मार्गदर्शन प्राप्त गर्नुहोस्।",
         icon: "guidance" as const,
-        image: images.whyChooseUs.clearGuidance,
+        image: images.whyChooseUs.researchGuidance,
       },
       {
         number: "०८",
@@ -158,7 +158,7 @@ const content = {
         description:
           "विभिन्न विषय तथा शैक्षिक स्तरका शैक्षिक परियोजना र अनुसन्धानसम्बन्धी कार्यहरूमा सहयोग।",
         icon: "project" as const,
-        image: images.services.projectAcademicSupport,
+image: images.services.academicSupport,
       },
     ],
 

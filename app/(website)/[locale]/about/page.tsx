@@ -296,43 +296,63 @@ export default async function AboutPage({
               </p>
 
 
-              <div className="mt-9 flex flex-wrap items-center gap-5">
+              <div
+  className="
+    mt-7
+    flex
+    flex-col
+    items-start
+    gap-3
+    sm:mt-9
+    sm:flex-row
+    sm:items-center
+    sm:gap-5
+  "
+>
+  <Button
+    href={`/${locale}/contact`}
+    className="
+      w-fit
+      px-5
+      py-2.5
+      text-sm
+      sm:px-6
+      sm:py-3
+    "
+  >
+    {t.hero.primaryButton}
+  </Button>
 
-                <Button href={`/${locale}/contact`}>
-                  {t.hero.primaryButton}
-                </Button>
+  <Link
+    href={`/${locale}/services`}
+    className="
+      group
+      inline-flex
+      items-center
+      gap-2
+      px-1
+      py-1
+      text-sm
+      font-bold
+      text-purple-brand
+      transition-colors
+      hover:text-purple-bright
+    "
+  >
+    {t.hero.secondaryButton}
 
-
-                <Link
-                  href={`/${locale}/services`}
-                  className="
-                    group
-                    inline-flex
-                    items-center
-                    gap-2
-                    text-sm
-                    font-bold
-                    text-purple-brand
-                    transition-colors
-                    hover:text-purple-bright
-                  "
-                >
-                  {t.hero.secondaryButton}
-
-                  <span
-                    aria-hidden="true"
-                    className="
-                      transition-transform
-                      duration-300
-                      group-hover:translate-x-1
-                    "
-                  >
-                    →
-                  </span>
-
-                </Link>
-
-              </div>
+    <span
+      aria-hidden="true"
+      className="
+        transition-transform
+        duration-300
+        group-hover:translate-x-1
+      "
+    >
+      →
+    </span>
+  </Link>
+</div>
 
             </div>
 
@@ -379,7 +399,7 @@ export default async function AboutPage({
                 >
 
                   <Image
-                    src={images.whyChooseUs.clearGuidance}
+                    src={images.hero.aboutHero}
                     alt="Research guidance and academic support"
                     fill
                     className="object-cover"
