@@ -22,28 +22,24 @@ const content = {
 
     testimonials: [
       {
-        // number: "01",
         quote:
           "The guidance helped me understand my research process more clearly and approach my thesis with greater confidence.",
         name: "Student",
         role: "Thesis Support",
       },
       {
-        // number: "02",
         quote:
           "The research support made complex parts of my project much easier to understand and organize.",
         name: "Researcher",
         role: "Research Support",
       },
       {
-        // number: "03",
         quote:
           "The structured approach helped me move from an initial idea to a much clearer research direction.",
         name: "Student",
         role: "Research Guidance",
       },
       {
-        // number: "04",
         quote:
           "The support helped me bring different parts of my academic work together in a more organized way.",
         name: "Researcher",
@@ -67,28 +63,24 @@ const content = {
 
     testimonials: [
       {
-        // number: "०१",
         quote:
           "मार्गदर्शनले मेरो अनुसन्धान प्रक्रियालाई अझ स्पष्ट रूपमा बुझ्न र थेसिसमा आत्मविश्वासका साथ अगाडि बढ्न सहयोग गर्‍यो।",
         name: "विद्यार्थी",
         role: "थेसिस सहयोग",
       },
       {
-        // number: "०२",
         quote:
           "अनुसन्धान सहयोगले मेरो परियोजनाका जटिल पक्षहरूलाई बुझ्न र व्यवस्थित गर्न निकै सहज बनायो।",
         name: "अनुसन्धानकर्ता",
         role: "अनुसन्धान सहयोग",
       },
       {
-        // number: "०३",
         quote:
           "व्यवस्थित प्रक्रियाले प्रारम्भिक विचारबाट स्पष्ट अनुसन्धान दिशातर्फ अघि बढ्न सहयोग गर्‍यो।",
         name: "विद्यार्थी",
         role: "अनुसन्धान मार्गदर्शन",
       },
       {
-        // number: "०४",
         quote:
           "सहयोगले मेरो शैक्षिक कार्यका विभिन्न पक्षहरूलाई अझ व्यवस्थित रूपमा एकसाथ अघि बढाउन सहयोग गर्‍यो।",
         name: "अनुसन्धानकर्ता",
@@ -343,31 +335,29 @@ export default function Testimonials({
                   key={`${testimonial.name}-${index}`}
                   onMouseEnter={() => setActiveIndex(index)}
                   onMouseLeave={() => setActiveIndex(null)}
-                  className={`
-  group
-  relative
-  flex
-  min-h-[245px]
-  flex-col
-  justify-between
-  overflow-hidden
-  rounded-2xl
-  border
-  border-border/80
-  bg-background
-  p-5
-  shadow-[0_8px_25px_rgba(15,23,42,0.06)]
-  transition-all
-  duration-300
-  sm:min-h-[255px]
-  sm:p-6
-
-  opacity-100
-
-  hover:-translate-y-1.5
-  hover:border-purple-bright/40
-  hover:shadow-[0_16px_35px_rgba(123,44,191,0.12)]
-`}
+                  className="
+                    group
+                    relative
+                    flex
+                    min-h-[245px]
+                    flex-col
+                    justify-between
+                    overflow-hidden
+                    rounded-2xl
+                    border
+                    border-border/80
+                    bg-background
+                    p-5
+                    shadow-[0_8px_25px_rgba(15,23,42,0.06)]
+                    transition-all
+                    duration-300
+                    sm:min-h-[255px]
+                    sm:p-6
+                    opacity-100
+                    hover:-translate-y-1.5
+                    hover:border-purple-bright/40
+                    hover:shadow-[0_16px_35px_rgba(123,44,191,0.12)]
+                  "
                 >
                   {/* Card glow */}
 
@@ -420,21 +410,23 @@ export default function Testimonials({
 
                       {/* Trustpilot logo */}
 
-                      <Image
-                        src={images.testimonials.trustpilotLogo}
-                        alt="Trustpilot"
-                        width={90}
-                        height={24}
-                        className="
-                          h-auto
-                          w-[78px]
-                          object-contain
-                          opacity-80
-                          transition-all
-                          duration-300
-                          group-hover:opacity-100
-                        "
-                      />
+                      <div className="relative h-8 w-32">
+  {/* Light theme */}
+  <Image
+    src={images.testimonials.trustpilotLogo}
+    alt="Trustpilot"
+    fill
+    className="object-contain dark:hidden"
+  />
+
+  {/* Dark theme */}
+  <Image
+    src={images.testimonials.trustpilotLogoWhite}
+    alt="Trustpilot"
+    fill
+    className="hidden object-contain dark:block"
+  />
+</div>
                     </div>
 
                     {/* Quote */}
@@ -545,8 +537,6 @@ export default function Testimonials({
                           {testimonial.role}
                         </p>
                       </div>
-
-                      
                     </div>
                   </div>
 

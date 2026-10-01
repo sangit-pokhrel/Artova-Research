@@ -80,7 +80,10 @@ testimonials: {
     "/images/testimonials/student-research-guidance.jpg",
 
   trustpilotLogo:
-  "/images/trustpilot/trustpilot-logo-new.png",
+    "/images/trustpilot/trustpilot-logo-new.png",
+
+  trustpilotLogoWhite:
+    "/images/trustpilot/trustpilot-logo-white.png",
 },
 
   contact: {

@@ -401,41 +401,7 @@ export default async function AboutPage({
                   />
 
 
-                  <div className="absolute bottom-5 left-5 right-5">
-
-                    <div
-                      className="
-                        inline-flex
-                        items-center
-                        gap-2
-                        rounded-full
-                        border
-                        border-white/20
-                        bg-black/20
-                        px-4
-                        py-2
-                        text-xs
-                        font-semibold
-                        text-white
-                        backdrop-blur-md
-                      "
-                    >
-
-                      <span
-                        aria-hidden="true"
-                        className="
-                          h-2
-                          w-2
-                          rounded-full
-                          bg-[#D100D1]
-                        "
-                      />
-
-                      {t.hero.imageLabel}
-
-                    </div>
-
-                  </div>
+                   
 
                 </div>
 
@@ -445,40 +411,39 @@ export default async function AboutPage({
               {/* Floating Artova accent */}
 
               <div
-                className="
-                  absolute
-                  -bottom-5
-                  -left-5
-                  hidden
-                  rounded-2xl
-                  border
-                  border-purple-bright/20
-                  bg-surface-elevated/90
-                  px-5
-                  py-4
-                  shadow-[var(--shadow-md)]
-                  backdrop-blur-md
-                  sm:block
-                "
-              >
+  className="
+    absolute
+    -bottom-5
+    -left-2
+    rounded-2xl
+    border
+    border-purple-bright/20
+    bg-surface-elevated/95
+    px-4
+    py-3
+    shadow-[var(--shadow-md)]
+    backdrop-blur-md
+    sm:-left-5
+    sm:px-5
+    sm:py-4
+  "
+>
+  <p
+    className="
+      text-[10px]
+      font-bold
+      uppercase
+      tracking-[0.2em]
+      text-accent
+    "
+  >
+    Artova Research
+  </p>
 
-                <p
-                  className="
-                    text-[10px]
-                    font-bold
-                    uppercase
-                    tracking-[0.2em]
-                    text-accent
-                  "
-                >
-                  Artova Research
-                </p>
-
-                <p className="mt-1 text-sm font-bold text-foreground">
-                  Ideas · Insights · Impact
-                </p>
-
-              </div>
+  <p className="mt-1 text-sm font-bold text-foreground">
+    Ideas · Insights · Impact
+  </p>
+</div>
 
             </div>
 

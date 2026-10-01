@@ -16,6 +16,10 @@
    #D100D1  Electric Magenta
    ========================================================= */
 
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
 @theme inline {
   /* Core */
   --color-background: var(--background);
