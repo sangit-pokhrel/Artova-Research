@@ -1,0 +1,846 @@
+"use client";
+
+import type { Locale } from "@/lib/i18n/config";
+import Image from "next/image";
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { localizeUniversity } from "@/lib/guidelineLanguage";
+import { getAcademicUnits } from "@/lib/academicUnits";
+
+export default function UniversityGuidelineClient({
+  university,
+  locale,
+}: {
+  university: import("@/lib/guidelines").UniversityGuideline;
+  locale: Locale;
+}) {
+  const currentUniversity = localizeUniversity(university, locale);
+  const universityData = currentUniversity;
+
+  const [unitSearch, setUnitSearch] = useState("");
+
+  const academicUnits = getAcademicUnits(university.slug);
+
+  const filteredUnits = useMemo(() => {
+    const query = unitSearch.trim().toLowerCase();
+
+    if (!query) return academicUnits;
+
+    return academicUnits.filter((unit) =>
+      `${unit.name} ${unit.nameNe ?? ""} ${unit.parent ?? ""} ${unit.type}`
+        .toLowerCase()
+        .includes(query),
+    );
+  }, [academicUnits, unitSearch]);
+
+  const navigationItems = universityData.sections.map((section, index) => ({
+    id: `section-${index + 1}`,
+    number: String(index + 1).padStart(2, "0"),
+    title: section.title.replace(/^\d+\.\s*/, ""),
+  }));
+
+  return (
+    <main>
+      {/* =====================================================
+          HERO
+      ====================================================== */}
+      <section className="relative min-h-125 overflow-hidden">
+        <Image
+          src={universityData.image}
+          alt={`${universityData.name} research guidelines`}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+
+        {/* Dark navy image overlay */}
+        <div className="absolute inset-0 bg-[#071a31]/65" />
+
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071a31]/85 via-[#071a31]/60 to-[#071a31]/30" />
+
+        {/* Subtle purple glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-32 top-10 h-80 w-80 rounded-full bg-purple-bright/10 blur-[100px]"
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-purple-electric/8 blur-[100px]"
+        />
+
+        <div className="relative z-10 mx-auto flex min-h-125 max-w-7xl items-center px-6 py-20 lg:px-8">
+          <div className="max-w-4xl">
+            <Link
+              href={`/${locale}/guidelines`}
+              className="inline-flex items-center text-sm font-medium text-white/70 transition-colors hover:text-purple-electric"
+            >
+              {locale === "en"
+                ? "← All Research Guidelines"
+                : "← सबै अनुसन्धान निर्देशनहरू"}
+            </Link>
+
+            <div className="mt-8 flex items-center gap-4">
+              <span
+                className="
+                  flex h-14 min-w-14 items-center justify-center
+                  rounded-xl
+                  bg-gradient-to-br
+                  from-purple-brand
+                  via-purple-bright
+                  to-purple-electric
+                  px-3
+                  text-sm
+                  font-bold
+                  text-white
+                  shadow-[0_8px_25px_rgba(177,0,232,0.25)]
+                "
+              >
+                {universityData.shortName}
+              </span>
+
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-purple-bright">
+                {locale === "en"
+                  ? "University Research Guide"
+                  : "विश्वविद्यालय अनुसन्धान गाइड"}
+              </p>
+            </div>
+
+            <h1 className="mt-7 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              {universityData.name}
+            </h1>
+
+            <p className="mt-6 max-w-3xl text-base leading-8 text-white/85 sm:text-lg">
+              {universityData.description}
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium text-white/60">
+              <span>
+                {locale === "en"
+                  ? "Information checked:"
+                  : "जानकारी जाँच गरिएको:"}{" "}
+                {universityData.lastVerified}
+              </span>
+
+              <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:block" />
+
+              <span>
+                {universityData.sections.length}{" "}
+                {locale === "en"
+                  ? "guideline sections"
+                  : "निर्देशन खण्डहरू"}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          INTRODUCTION
+      ====================================================== */}
+      <section className="bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-purple-bright">
+                {locale === "en" ? "Before You Begin" : "सुरु गर्नुअघि"}
+              </p>
+
+              <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                {locale === "en"
+                  ? "Use the guide, then verify your programme."
+                  : "गाइड प्रयोग गर्नुहोस्, त्यसपछि आफ्नो कार्यक्रमको आवश्यकताहरू पुष्टि गर्नुहोस्।"}
+              </h2>
+            </div>
+
+            <div>
+              <p className="leading-8 text-muted-foreground">
+                {locale === "en"
+                  ? "Research requirements can differ between universities, faculties, schools, departments, and academic programmes. This page organises the available requirements into a practical research guide."
+                  : "अनुसन्धान आवश्यकताहरू विश्वविद्यालय, संकाय, विद्यालय, विभाग तथा शैक्षिक कार्यक्रमअनुसार फरक हुन सक्छन्। यस पृष्ठले उपलब्ध आवश्यकताहरूलाई व्यावहारिक अनुसन्धान गाइडमा व्यवस्थित गर्छ।"}
+              </p>
+
+              <div className="mt-6 rounded-2xl border border-border bg-muted/40 p-6">
+                <div className="flex items-start gap-4">
+                  <span
+                    className="
+                      flex h-10 w-10 shrink-0 items-center justify-center
+                      rounded-full
+                      bg-gradient-to-br
+                      from-purple-brand
+                      via-purple-bright
+                      to-purple-electric
+                      text-sm
+                      font-bold
+                      text-white
+                      shadow-[0_6px_18px_rgba(177,0,232,0.18)]
+                    "
+                  >
+                    !
+                  </span>
+
+                  <div>
+                    <h3 className="font-semibold text-foreground">
+                      {locale === "en" ? "Important" : "महत्वपूर्ण"}
+                    </h3>
+
+                    <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                      {universityData.verificationNote}
+                    </p>
+
+                    <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                      {locale === "en"
+                        ? "Last verified:"
+                        : "अन्तिम पटक जाँच गरिएको:"}{" "}
+                      {universityData.lastVerified}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          ACADEMIC UNIT DIRECTORY
+      ====================================================== */}
+      <section className="border-y border-border bg-background">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-purple-bright">
+                {locale === "en"
+                  ? "Academic Unit Directory"
+                  : "शैक्षिक एकाइ सूची"}
+              </p>
+
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                {locale === "en"
+                  ? "Find your department or academic unit."
+                  : "आफ्नो विभाग वा शैक्षिक एकाइ खोज्नुहोस्।"}
+              </h2>
+
+              <p className="mt-4 leading-7 text-muted-foreground">
+                {locale === "en"
+                  ? "Search the university structure below, then open the unit that matches your research programme."
+                  : "तल विश्वविद्यालयको संरचना खोज्नुहोस् र आफ्नो अनुसन्धान कार्यक्रमसँग मिल्ने एकाइ खोल्नुहोस्।"}
+              </p>
+            </div>
+
+            <div className="shrink-0 rounded-2xl border border-border bg-muted/40 px-5 py-4 text-center">
+              <p className="text-2xl font-bold text-foreground">
+                {academicUnits.length}
+              </p>
+
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                {locale === "en" ? "Academic units" : "शैक्षिक एकाइ"}
+              </p>
+            </div>
+          </div>
+
+          <div className="relative mt-8 max-w-3xl">
+            <svg
+              className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4-4" />
+            </svg>
+
+            <input
+              value={unitSearch}
+              onChange={(event) => setUnitSearch(event.target.value)}
+              placeholder={
+                locale === "en"
+                  ? "Search departments, schools, faculties..."
+                  : "विभाग, विद्यालय, संकाय खोज्नुहोस्..."
+              }
+              aria-label={
+                locale === "en"
+                  ? "Search academic units"
+                  : "शैक्षिक एकाइ खोज्नुहोस्"
+              }
+              className="h-13 w-full rounded-xl border border-border bg-background pl-12 pr-12 text-sm text-foreground outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 dark:focus:border-accent dark:focus:ring-accent/10"
+            />
+
+            {unitSearch && (
+              <button
+                type="button"
+                onClick={() => setUnitSearch("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg px-2 py-1 text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                {locale === "en" ? "Clear" : "हटाउनुहोस्"}
+              </button>
+            )}
+          </div>
+
+          <div className="mt-8 flex items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground">
+              {filteredUnits.length}{" "}
+              {locale === "en" ? "result" : "नतिजा"}
+              {filteredUnits.length === 1
+                ? ""
+                : locale === "en"
+                  ? "s"
+                  : "हरू"}
+            </p>
+
+            <Link
+              href={`/${locale}/guidelines`}
+              className="text-sm font-semibold text-primary transition hover:text-primary/70 dark:text-accent dark:hover:text-accent/80"
+            >
+              {locale === "en"
+                ? "Change university →"
+                : "विश्वविद्यालय परिवर्तन गर्नुहोस् →"}
+            </Link>
+          </div>
+
+          {filteredUnits.length > 0 ? (
+            <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {filteredUnits.map((unit) => (
+                <Link
+                  key={unit.slug}
+                  href={`/${locale}/guidelines/${university.slug}/${unit.slug}`}
+                  className="group flex min-h-30 items-start justify-between gap-5 rounded-2xl border border-border bg-background p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg dark:hover:border-accent/40"
+                >
+                  <div className="min-w-0">
+                    <span
+                      className="
+                        inline-flex rounded-md
+                        bg-gradient-to-r
+                        from-purple-brand/10
+                        to-purple-electric/10
+                        px-2.5 py-1
+                        text-[10px]
+                        font-bold
+                        uppercase
+                        tracking-[0.12em]
+                        text-purple-brand
+                        dark:text-purple-electric
+                      "
+                    >
+                      {unit.type.replace(
+                        "academic-unit",
+                        locale === "en" ? "academic unit" : "शैक्षिक एकाइ",
+                      )}
+                    </span>
+
+                    <h3 className="mt-3 font-semibold leading-6 text-foreground">
+                      {locale === "en" ? unit.name : unit.nameNe}
+                    </h3>
+
+                    {unit.parent && (
+                      <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                        {unit.parent}
+                      </p>
+                    )}
+                  </div>
+
+                  <span
+                    className="mt-1 shrink-0 text-lg text-purple-bright transition-transform group-hover:translate-x-1"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-5 rounded-2xl border border-dashed border-border bg-muted/30 px-6 py-12 text-center">
+              <p className="font-semibold text-foreground">
+                {locale === "en"
+                  ? "No academic unit found."
+                  : "कुनै शैक्षिक एकाइ भेटिएन।"}
+              </p>
+
+              <p className="mt-2 text-sm text-muted-foreground">
+                {locale === "en"
+                  ? "Try a different department or programme name."
+                  : "फरक विभाग वा कार्यक्रमको नाम खोज्नुहोस्।"}
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* =====================================================
+          GUIDELINE CONTENT
+      ====================================================== */}
+      <section className="border-t border-border bg-muted/20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[240px_minmax(0,1fr)]">
+            {/* =================================================
+                SIDEBAR
+            ================================================== */}
+            <aside className="hidden lg:block">
+              <div className="sticky top-24 py-12">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-bright">
+                  {locale === "en" ? "On this page" : "यस पृष्ठमा"}
+                </p>
+
+                <nav
+                  aria-label={`${universityData.name} ${
+                    locale === "en"
+                      ? "guideline sections"
+                      : "निर्देशन खण्डहरू"
+                  }`}
+                  className="mt-5 border-l border-border"
+                >
+                  {navigationItems.map((item) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="group flex gap-3 border-l-2 border-transparent px-4 py-2.5 text-sm text-muted-foreground transition-all duration-200 hover:border-accent hover:bg-background hover:text-foreground"
+                    >
+                      <span className="shrink-0 text-[10px] font-bold text-purple-bright">
+                        {item.number}
+                      </span>
+
+                      <span className="leading-5">{item.title}</span>
+                    </a>
+                  ))}
+                </nav>
+
+                <div className="mt-8 rounded-xl border border-border bg-background p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.15em] text-purple-bright">
+                    {locale === "en" ? "Need help?" : "सहयोग चाहिन्छ?"}
+                  </p>
+
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    {locale === "en"
+                      ? "Need help applying these requirements to your own research?"
+                      : "यी आवश्यकताहरू आफ्नो अनुसन्धानमा लागू गर्न सहयोग चाहिन्छ?"}
+                  </p>
+
+                  <Link
+                    href="/contact"
+                    className="mt-4 inline-flex text-sm font-semibold text-foreground transition-colors hover:text-purple-electric"
+                  >
+                    {locale === "en"
+                      ? "Discuss your research →"
+                      : "आफ्नो अनुसन्धानबारे छलफल गर्नुहोस् →"}
+                  </Link>
+                </div>
+              </div>
+            </aside>
+
+            {/* =================================================
+                MAIN CONTENT
+            ================================================== */}
+            <div className="min-w-0 py-12 sm:py-16">
+              {/* Mobile table of contents */}
+              <details className="mb-10 rounded-xl border border-border bg-background lg:hidden">
+                <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-foreground">
+                  {locale === "en" ? "Table of contents" : "विषयसूची"}
+                </summary>
+
+                <div className="border-t border-border p-3">
+                  {navigationItems.map((item) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    >
+                      <span className="text-[10px] font-bold text-purple-bright">
+                        {item.number}
+                      </span>
+
+                      <span>{item.title}</span>
+                    </a>
+                  ))}
+                </div>
+              </details>
+
+              {/* =================================================
+                  SECTIONS
+              ================================================== */}
+              <div className="space-y-8">
+                {universityData.sections.map((section, index) => (
+                  <article
+                    key={section.title}
+                    id={`section-${index + 1}`}
+                    className="scroll-mt-28 overflow-hidden rounded-2xl border border-border bg-background shadow-sm"
+                  >
+                    {/* Section header */}
+                    <div className="border-b border-border px-6 py-7 sm:px-8">
+                      <div className="flex items-start gap-5">
+                        <span
+                          className="
+                            flex h-11 w-11 shrink-0 items-center justify-center
+                            rounded-lg
+                            bg-gradient-to-br
+                            from-purple-brand
+                            via-purple-bright
+                            to-purple-electric
+                            text-xs
+                            font-bold
+                            text-white
+                            shadow-[0_6px_18px_rgba(177,0,232,0.18)]
+                          "
+                        >
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-bright">
+                            {locale === "en"
+                              ? "Research Guideline"
+                              : "अनुसन्धान निर्देशन"}
+                          </p>
+
+                          <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                            {section.title.replace(/^\d+\.\s*/, "")}
+                          </h2>
+
+                          <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">
+                            {section.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Section body */}
+                    <div className="px-6 py-7 sm:px-8 sm:py-9">
+                      {/* Detailed subsections */}
+                      {section.details &&
+                        section.details.length > 0 && (
+                          <div className="space-y-9">
+                            {section.details.map((detail) => (
+                              <div key={detail.title}>
+                                <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                                  {detail.title}
+                                </h3>
+
+                                {detail.description && (
+                                  <p className="mt-2 max-w-3xl leading-7 text-muted-foreground">
+                                    {detail.description}
+                                  </p>
+                                )}
+
+                                {detail.bullets &&
+                                  detail.bullets.length > 0 && (
+                                    <ul className="mt-4 grid gap-x-8 gap-y-2.5 md:grid-cols-2">
+                                      {detail.bullets.map((bullet) => (
+                                        <li
+                                          key={bullet}
+                                          className="flex items-start gap-3 text-sm leading-6 text-foreground"
+                                        >
+                                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-bright" />
+
+                                          <span>{bullet}</span>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                      {/* Quick checklist */}
+                      {section.items &&
+                        section.items.length > 0 && (
+                          <div
+                            className={`${
+                              section.details &&
+                              section.details.length > 0
+                                ? "mt-10 border-t border-border pt-8"
+                                : ""
+                            }`}
+                          >
+                            <p className="text-xs font-bold uppercase tracking-[0.16em] text-purple-bright">
+                              {locale === "en"
+                                ? "Quick Checklist"
+                                : "छोटो जाँचसूची"}
+                            </p>
+
+                            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                              {section.items.map((item) => (
+                                <div
+                                  key={item}
+                                  className="flex items-start gap-3 rounded-lg bg-muted/50 px-4 py-3"
+                                >
+                                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-brand via-purple-bright to-purple-electric text-[10px] font-bold text-white shadow-[0_4px_12px_rgba(177,0,232,0.16)]">
+                                    ✓
+                                  </span>
+
+                                  <span className="text-sm leading-6 text-foreground">
+                                    {item}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              {/* =================================================
+                  SOURCES
+              ================================================== */}
+              <section
+                id="official-sources"
+                className="scroll-mt-28 mt-12 overflow-hidden rounded-2xl border border-border bg-primary"
+              >
+                <div className="px-6 py-8 sm:px-8">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-bright">
+                    {locale === "en"
+                      ? "Official Sources"
+                      : "आधिकारिक स्रोतहरू"}
+                  </p>
+
+                  <h2 className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                    {locale === "en"
+                      ? "Verify the latest requirements."
+                      : "नवीनतम आवश्यकताहरू पुष्टि गर्नुहोस्।"}
+                  </h2>
+
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-white/70">
+                    {locale === "en"
+                      ? "This page is a structured summary for research planning. The official university documents remain the authoritative reference."
+                      : "यो पृष्ठ अनुसन्धान योजनाका लागि संरचित सारांश हो। आधिकारिक विश्वविद्यालयका कागजातहरू नै आधिकारिक सन्दर्भका रूपमा मान्य रहन्छन्।"}
+                  </p>
+                </div>
+
+                <div className="space-y-2 border-t border-white/10 p-4 sm:p-5">
+                  {universityData.officialSources.map((source) => (
+                    <a
+                      key={source.url}
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between gap-5 rounded-xl border border-white/10 bg-white/5 px-5 py-4 transition-colors duration-200 hover:bg-white/10"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-white transition-colors group-hover:text-purple-electric">
+                          {source.title}
+                        </p>
+
+                        <p className="mt-1 break-all text-xs leading-5 text-white/45">
+                          {source.url}
+                        </p>
+                      </div>
+
+                      <span className="shrink-0 text-lg text-white/50 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-purple-electric">
+                        ↗
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          RESEARCH WORKFLOW
+      ====================================================== */}
+      <section className="bg-background py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-purple-bright">
+                {locale === "en"
+                  ? "Research Workflow"
+                  : "अनुसन्धान कार्यप्रवाह"}
+              </p>
+
+              <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                {locale === "en"
+                  ? "From research idea to final submission."
+                  : "अनुसन्धान विचारदेखि अन्तिम पेशासम्म।"}
+              </h2>
+
+              <p className="mt-5 leading-8 text-muted-foreground">
+                {locale === "en"
+                  ? "Use the university requirements together with a clear research workflow to keep your proposal, methodology, analysis, writing, and final submission connected."
+                  : "प्रस्ताव, अनुसन्धान विधि, विश्लेषण, लेखन तथा अन्तिम पेशालाई जोडेर राख्न विश्वविद्यालयका आवश्यकतासँग स्पष्ट अनुसन्धान कार्यप्रवाह प्रयोग गर्नुहोस्।"}
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {(locale === "en"
+                ? [
+                    {
+                      number: "01",
+                      title: "Plan",
+                      text: "Define your topic, problem, objectives, and research direction.",
+                    },
+                    {
+                      number: "02",
+                      title: "Research",
+                      text: "Review literature and establish an appropriate methodology.",
+                    },
+                    {
+                      number: "03",
+                      title: "Analyse",
+                      text: "Collect, prepare, analyse, and interpret your research data.",
+                    },
+                    {
+                      number: "04",
+                      title: "Finalise",
+                      text: "Organise, edit, format, reference, and prepare the final document.",
+                    },
+                  ]
+                : [
+                    {
+                      number: "०१",
+                      title: "योजना",
+                      text: "आफ्नो विषय, समस्या, उद्देश्य तथा अनुसन्धानको दिशा स्पष्ट गर्नुहोस्।",
+                    },
+                    {
+                      number: "०२",
+                      title: "अनुसन्धान",
+                      text: "साहित्य समीक्षा गरी उपयुक्त अनुसन्धान विधि तय गर्नुहोस्।",
+                    },
+                    {
+                      number: "०३",
+                      title: "विश्लेषण",
+                      text: "अनुसन्धान डाटा संकलन, तयारी, विश्लेषण तथा व्याख्या गर्नुहोस्।",
+                    },
+                    {
+                      number: "०४",
+                      title: "अन्तिम तयारी",
+                      text: "अन्तिम दस्तावेजलाई व्यवस्थित, सम्पादन, फर्म्याट, सन्दर्भ व्यवस्थापन तथा पेशका लागि तयार गर्नुहोस्।",
+                    },
+                  ]
+              ).map((step) => (
+                <div
+                  key={step.number}
+                  className="rounded-2xl border border-border bg-muted/30 p-6"
+                >
+                  <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-lg bg-gradient-to-br from-purple-brand via-purple-bright to-purple-electric px-2 text-xs font-bold tracking-[0.15em] text-white shadow-[0_4px_12px_rgba(177,0,232,0.16)]">
+                    {step.number}
+                  </span>
+
+                  <h3 className="mt-3 text-lg font-semibold text-foreground">
+                    {step.title}
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    {step.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          ACADEMIC UNIT DIRECTORY
+      ====================================================== */}
+      <section className="bg-muted/20 py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-purple-bright">
+              {locale === "en"
+                ? "ACADEMIC UNIT DIRECTORY"
+                : "शैक्षिक एकाइ सूची"}
+            </p>
+
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              {locale === "en"
+                ? "Find your department, school or faculty"
+                : "आफ्नो विभाग, स्कुल वा संकाय खोज्नुहोस्"}
+            </h2>
+
+            <p className="mt-4 leading-7 text-muted-foreground">
+              {locale === "en"
+                ? "Select an academic unit to view the university-level research framework together with the official unit source."
+                : "विश्वविद्यालय-स्तरीय अनुसन्धान ढाँचा तथा आधिकारिक एकाइ स्रोत हेर्न सम्बन्धित शैक्षिक एकाइ छनोट गर्नुहोस्।"}
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {getAcademicUnits(university.slug).map((unit) => (
+              <Link
+                key={unit.slug}
+                href={`/${locale}/guidelines/${university.slug}/${unit.slug}`}
+                className="group rounded-xl border border-border bg-background p-5 transition hover:-translate-y-0.5 hover:border-purple-bright/40 hover:shadow-md"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-purple-bright">
+                      {unit.type.replace("academic-unit", "academic unit")}
+                    </p>
+
+                    <h3 className="mt-2 font-semibold leading-6">
+                      {locale === "en" ? unit.name : unit.nameNe}
+                    </h3>
+
+                    {unit.parent ? (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {unit.parent}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  <span className="text-purple-bright transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          CTA
+      ====================================================== */}
+      <section className="bg-primary py-20 sm:py-24">
+        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-purple-bright">
+            {locale === "en"
+              ? "Need Research Support?"
+              : "अनुसन्धान सहयोग चाहिन्छ?"}
+          </p>
+
+          <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            {locale === "en"
+              ? "Work through your research with a clearer structure."
+              : "अझ स्पष्ट संरचनाका साथ आफ्नो अनुसन्धान अघि बढाउनुहोस्।"}
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-2xl leading-8 text-white/75">
+            {locale === "en"
+              ? "Discuss your research topic, proposal, methodology, analysis, thesis, or dissertation requirements with the Thesis Companion team."
+              : "आफ्नो अनुसन्धान विषय, प्रस्ताव, अनुसन्धान विधि, विश्लेषण, थेसिस वा डिसर्टेसनका आवश्यकताबारे Thesis Companion टोलीसँग छलफल गर्नुहोस्।"}
+          </p>
+
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent/90"
+            >
+              {locale === "en"
+                ? "Discuss Your Research"
+                : "आफ्नो अनुसन्धानबारे छलफल गर्नुहोस्"}
+
+              <span className="ml-2">→</span>
+            </Link>
+
+            <Link
+              href={`/${locale}/guidelines`}
+              className="inline-flex items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:border-purple-electric hover:text-purple-electric"
+            >
+              {locale === "en"
+                ? "View Other Guidelines"
+                : "अन्य निर्देशनहरू हेर्नुहोस्"}
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
