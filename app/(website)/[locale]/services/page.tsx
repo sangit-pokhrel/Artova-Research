@@ -15,9 +15,12 @@ const content = {
     intro:
       "From developing your research idea to preparing and refining your final academic work, Artova Research provides structured support across key research stages.",
 
+    exploreMore: "Explore More",
+
     services: [
       {
         number: "01",
+        slug: "research-proposal",
         title: "Research Proposal Support",
         description:
           "Develop a clear research proposal with support for topic selection, research questions, objectives, scope, methodology, and overall structure.",
@@ -26,6 +29,7 @@ const content = {
       },
       {
         number: "02",
+        slug: "thesis-dissertation",
         title: "Thesis & Dissertation Support",
         description:
           "Get structured guidance throughout your thesis or dissertation, from planning and chapter development to review and refinement.",
@@ -34,6 +38,7 @@ const content = {
       },
       {
         number: "03",
+        slug: "literature-review",
         title: "Literature Review",
         description:
           "Identify, organize, evaluate, and synthesize relevant academic literature to establish a strong foundation for your research.",
@@ -42,6 +47,7 @@ const content = {
       },
       {
         number: "04",
+        slug: "methodology",
         title: "Research Methodology",
         description:
           "Understand and develop appropriate research designs, methods, sampling approaches, data collection techniques, and methodological structures.",
@@ -50,6 +56,7 @@ const content = {
       },
       {
         number: "05",
+        slug: "data-analysis",
         title: "Data Analysis",
         description:
           "Get support with preparing, analyzing, interpreting, and presenting research data using appropriate analytical approaches.",
@@ -58,6 +65,7 @@ const content = {
       },
       {
         number: "06",
+        slug: "academic-writing",
         title: "Academic Writing Support",
         description:
           "Improve the structure, clarity, organization, and academic presentation of your research documents.",
@@ -66,6 +74,7 @@ const content = {
       },
       {
         number: "07",
+        slug: "research-guidance",
         title: "Research Guidance",
         description:
           "Receive practical guidance when you are unsure about your research direction, methodology, analysis, or next steps.",
@@ -74,11 +83,12 @@ const content = {
       },
       {
         number: "08",
+        slug: "project-academic-support",
         title: "Project & Academic Support",
         description:
           "Support for academic projects and research-related work across different subjects and academic levels.",
         icon: "project" as const,
-image: images.services.proposalSupport,
+        image: images.services.academicSupport,
       },
     ],
 
@@ -91,13 +101,17 @@ image: images.services.proposalSupport,
 
   ne: {
     eyebrow: "हाम्रा सेवाहरू",
-    title: "तपाईंको शैक्षिक यात्राका प्रत्येक चरणका लागि अनुसन्धान सहयोग।",
+    title:
+      "तपाईंको शैक्षिक यात्राका प्रत्येक चरणका लागि अनुसन्धान सहयोग।",
     intro:
       "अनुसन्धानको विचार विकास गर्नेदेखि अन्तिम शैक्षिक कार्य तयार तथा परिष्कृत गर्नेसम्म आर्टोभा रिसर्चले अनुसन्धानका महत्वपूर्ण चरणहरूमा व्यवस्थित सहयोग प्रदान गर्दछ।",
+
+    exploreMore: "थप हेर्नुहोस्",
 
     services: [
       {
         number: "०१",
+        slug: "research-proposal",
         title: "अनुसन्धान प्रस्ताव सहयोग",
         description:
           "विषय छनोट, अनुसन्धान प्रश्न, उद्देश्य, क्षेत्र, अनुसन्धान विधि तथा समग्र संरचनामा सहयोगसहित स्पष्ट अनुसन्धान प्रस्ताव तयार गर्न सहयोग।",
@@ -106,6 +120,7 @@ image: images.services.proposalSupport,
       },
       {
         number: "०२",
+        slug: "thesis-dissertation",
         title: "थेसिस तथा डिसर्टेसन सहयोग",
         description:
           "योजना तथा अध्याय विकासदेखि समीक्षा र परिष्करणसम्म थेसिस वा डिसर्टेसनको सम्पूर्ण प्रक्रियामा व्यवस्थित मार्गदर्शन।",
@@ -114,6 +129,7 @@ image: images.services.proposalSupport,
       },
       {
         number: "०३",
+        slug: "literature-review",
         title: "साहित्य समीक्षा",
         description:
           "सम्बन्धित शैक्षिक साहित्य पहिचान, व्यवस्थित, मूल्याङ्कन तथा संश्लेषण गरी अनुसन्धानका लागि बलियो आधार तयार गर्न सहयोग।",
@@ -122,6 +138,7 @@ image: images.services.proposalSupport,
       },
       {
         number: "०४",
+        slug: "methodology",
         title: "अनुसन्धान विधि",
         description:
           "उपयुक्त अनुसन्धान डिजाइन, विधि, नमुना छनोट, डेटा सङ्कलन प्रविधि तथा अनुसन्धान संरचना बुझ्न र विकास गर्न सहयोग।",
@@ -130,6 +147,7 @@ image: images.services.proposalSupport,
       },
       {
         number: "०५",
+        slug: "data-analysis",
         title: "डेटा विश्लेषण",
         description:
           "उपयुक्त विश्लेषणात्मक विधिहरू प्रयोग गरी अनुसन्धान डेटा तयार, विश्लेषण, व्याख्या तथा प्रस्तुत गर्न सहयोग।",
@@ -138,6 +156,7 @@ image: images.services.proposalSupport,
       },
       {
         number: "०६",
+        slug: "academic-writing",
         title: "शैक्षिक लेखन सहयोग",
         description:
           "अनुसन्धान दस्तावेजको संरचना, स्पष्टता, संगठन तथा शैक्षिक प्रस्तुतिलाई सुधार गर्न सहयोग।",
@@ -146,6 +165,7 @@ image: images.services.proposalSupport,
       },
       {
         number: "०७",
+        slug: "research-guidance",
         title: "अनुसन्धान मार्गदर्शन",
         description:
           "अनुसन्धानको दिशा, विधि, विश्लेषण वा आगामी चरणबारे अन्योल हुँदा व्यावहारिक मार्गदर्शन प्राप्त गर्नुहोस्।",
@@ -154,11 +174,12 @@ image: images.services.proposalSupport,
       },
       {
         number: "०८",
+        slug: "project-academic-support",
         title: "परियोजना तथा शैक्षिक सहयोग",
         description:
           "विभिन्न विषय तथा शैक्षिक स्तरका शैक्षिक परियोजना र अनुसन्धानसम्बन्धी कार्यहरूमा सहयोग।",
         icon: "project" as const,
-image: images.services.academicSupport,
+        image: images.services.academicSupport,
       },
     ],
 
@@ -188,15 +209,36 @@ export default async function ServicesPage({
       {/* =========================================================
           HERO
       ========================================================= */}
+
       <section className="relative overflow-hidden bg-background text-foreground transition-colors duration-300">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-40 top-10 h-[32rem] w-[32rem] rounded-full bg-purple-bright/10 blur-[120px]"
+          className="
+            pointer-events-none
+            absolute
+            -right-40
+            top-10
+            h-[32rem]
+            w-[32rem]
+            rounded-full
+            bg-purple-bright/10
+            blur-[120px]
+          "
         />
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -left-40 bottom-0 h-80 w-80 rounded-full bg-purple-interactive/8 blur-[100px]"
+          className="
+            pointer-events-none
+            absolute
+            -left-40
+            bottom-0
+            h-80
+            w-80
+            rounded-full
+            bg-purple-interactive/8
+            blur-[100px]
+          "
         />
 
         <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:px-8 lg:py-24">
@@ -223,107 +265,190 @@ export default async function ServicesPage({
       {/* =========================================================
           SERVICES
       ========================================================= */}
+
       <section className="bg-surface text-foreground transition-colors duration-300">
         <div className="mx-auto max-w-7xl px-6 py-14 sm:py-16 lg:px-8 lg:py-20">
           <div className="grid gap-5 md:grid-cols-2">
             {t.services.map((service) => (
-              <article
+              <Link
                 key={service.number}
-                className="
-                  group relative overflow-hidden
-                  rounded-3xl border border-border
-                  bg-surface-elevated
-                  shadow-[var(--shadow-sm)]
-                  transition-all duration-300
-                  hover:-translate-y-1
-                  hover:border-purple-bright/40
-                  hover:shadow-[var(--shadow-lg)]
-                "
+                href={`/${locale}/services/${service.slug}`}
+                className="group block"
+                aria-label={`${service.title} - ${t.exploreMore}`}
               >
-                {/* Image */}
-                <div className="relative h-52 overflow-hidden">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="
-                      object-cover
-                      transition-transform duration-700
-                      group-hover:scale-105
-                    "
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-
-                  <div
-                    className="
-                      absolute inset-0
-                      bg-gradient-to-t
-                      from-[#17033F]/80
-                      via-[#17033F]/15
-                      to-transparent
-                    "
-                  />
-
-                  {/* Number */}
-                  <div className="absolute left-5 top-5">
-                    <span
+                <article
+                  className="
+                    relative
+                    overflow-hidden
+                    rounded-3xl
+                    border
+                    border-border
+                    bg-surface-elevated
+                    shadow-[var(--shadow-sm)]
+                    transition-all
+                    duration-300
+                    hover:-translate-y-1
+                    hover:border-purple-bright/40
+                    hover:shadow-[var(--shadow-lg)]
+                  "
+                >
+                  {/* Image */}
+                  <div className="relative h-52 overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
                       className="
-                        inline-flex items-center
-                        rounded-full
-                        border border-white/20
-                        bg-black/20
-                        px-3 py-1.5
-                        text-xs font-bold
-                        text-white
-                        backdrop-blur-md
+                        object-cover
+                        transition-transform
+                        duration-700
+                        group-hover:scale-105
+                      "
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+
+                    {/* Image overlay */}
+                    <div
+                      className="
+                        absolute
+                        inset-0
+                        bg-gradient-to-t
+                        from-[#17033F]/80
+                        via-[#17033F]/15
+                        to-transparent
+                      "
+                    />
+
+                    {/* Number */}
+                    <div className="absolute left-5 top-5">
+                      <span
+                        className="
+                          inline-flex
+                          items-center
+                          rounded-full
+                          border
+                          border-white/20
+                          bg-black/20
+                          px-3
+                          py-1.5
+                          text-xs
+                          font-bold
+                          text-white
+                          backdrop-blur-md
+                        "
+                      >
+                        {service.number}
+                      </span>
+                    </div>
+
+                    {/* =================================================
+                        EXPLORE MORE — appears on card hover
+                    ================================================= */}
+
+                    <div
+                      className="
+                        absolute
+                        inset-0
+                        flex
+                        items-center
+                        justify-center
+                        bg-[#5A189A]/35
+                        opacity-0
+                        backdrop-blur-[2px]
+                        transition-all
+                        duration-300
+                        group-hover:opacity-100
                       "
                     >
-                      {service.number}
-                    </span>
+                      <span
+                        className="
+                          inline-flex
+                          translate-y-3
+                          items-center
+                          gap-2
+                          rounded-full
+                          border
+                          border-white/30
+                          bg-white/15
+                          px-5
+                          py-2.5
+                          text-sm
+                          font-bold
+                          text-white
+                          shadow-lg
+                          backdrop-blur-md
+                          transition-transform
+                          duration-300
+                          group-hover:translate-y-0
+                        "
+                      >
+                        {t.exploreMore}
+
+                        <span
+                          aria-hidden="true"
+                          className="text-base"
+                        >
+                          →
+                        </span>
+                      </span>
+                    </div>
                   </div>
-                </div>
 
-                {/* Content */}
-                <div className="p-7 sm:p-8">
-                  <div className="flex items-start justify-between gap-5">
-                    <ResearchIconContainer variant="card">
-                      <ResearchIcon name={service.icon} />
-                    </ResearchIconContainer>
+                  {/* Content */}
+                  <div className="p-7 sm:p-8">
+                    <div className="flex items-start justify-between gap-5">
+                      <ResearchIconContainer variant="card">
+                        <ResearchIcon name={service.icon} />
+                      </ResearchIconContainer>
 
-                    <span
+                      <span
+                        aria-hidden="true"
+                        className="
+                          flex
+                          h-9
+                          w-9
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-full
+                          border
+                          border-border
+                          text-sm
+                          text-muted
+                          transition-all
+                          duration-300
+                          group-hover:border-purple-bright
+                          group-hover:bg-purple-bright
+                          group-hover:text-white
+                          group-hover:shadow-[var(--glow-purple)]
+                        "
+                      >
+                        ↗
+                      </span>
+                    </div>
+
+                    <h2 className="mt-6 max-w-lg text-2xl font-bold leading-tight text-foreground sm:text-3xl">
+                      {service.title}
+                    </h2>
+
+                    <p className="mt-4 max-w-xl leading-7 text-muted">
+                      {service.description}
+                    </p>
+
+                    <div
                       className="
-                        flex h-9 w-9 shrink-0
-                        items-center justify-center
-                        rounded-full
-                        border border-border
-                        text-sm text-muted
-                        transition-all duration-300
-                        group-hover:border-purple-bright
-                        group-hover:text-purple-bright
+                        mt-7
+                        h-px
+                        w-10
+                        bg-accent
+                        transition-all
+                        duration-300
+                        group-hover:w-20
                       "
-                    >
-                      ↗
-                    </span>
+                    />
                   </div>
-
-                  <h2 className="mt-6 max-w-lg text-2xl font-bold leading-tight text-foreground sm:text-3xl">
-                    {service.title}
-                  </h2>
-
-                  <p className="mt-4 max-w-xl leading-7 text-muted">
-                    {service.description}
-                  </p>
-
-                  <div
-                    className="
-                      mt-7 h-px w-10
-                      bg-accent
-                      transition-all duration-300
-                      group-hover:w-20
-                    "
-                  />
-                </div>
-              </article>
+                </article>
+              </Link>
             ))}
           </div>
         </div>
@@ -332,13 +457,16 @@ export default async function ServicesPage({
       {/* =========================================================
           FINAL CTA
       ========================================================= */}
+
       <section className="bg-background px-6 pb-14 text-foreground transition-colors duration-300 sm:pb-16 lg:px-8 lg:pb-20">
         <div className="mx-auto max-w-7xl">
           <div
             className="
-              grid overflow-hidden
+              grid
+              overflow-hidden
               rounded-[2rem]
-              border border-border
+              border
+              border-border
               bg-surface-elevated
               shadow-[var(--shadow-lg)]
               lg:grid-cols-[0.95fr_1.05fr]
@@ -356,7 +484,8 @@ export default async function ServicesPage({
 
               <div
                 className="
-                  absolute inset-0
+                  absolute
+                  inset-0
                   bg-gradient-to-t
                   from-[#17033F]/80
                   via-[#17033F]/20
@@ -367,17 +496,23 @@ export default async function ServicesPage({
               <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8">
                 <div
                   className="
-                    inline-flex items-center gap-2
+                    inline-flex
+                    items-center
+                    gap-2
                     rounded-full
-                    border border-white/20
+                    border
+                    border-white/20
                     bg-black/20
-                    px-4 py-2
-                    text-xs font-semibold
+                    px-4
+                    py-2
+                    text-xs
+                    font-semibold
                     text-white
                     backdrop-blur-md
                   "
                 >
                   <span className="h-2 w-2 rounded-full bg-[#D100D1]" />
+
                   {locale === "en"
                     ? "Research-focused support"
                     : "अनुसन्धान केन्द्रित सहयोग"}
