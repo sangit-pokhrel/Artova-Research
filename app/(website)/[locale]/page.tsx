@@ -6,6 +6,7 @@ import HowItWorks from "@/components/sections/home/HowItWorks";
 import Testimonials from "@/components/sections/home/Testimonials";
 import FinalCTA from "@/components/sections/home/FinalCTA";
 import type { Locale } from "@/lib/i18n/config";
+import FAQPreview from "@/components/sections/home/FAQPreview";
 
 export default async function HomePage({
   params,
@@ -28,6 +29,8 @@ export default async function HomePage({
 
       <Testimonials locale={locale} />
 
+      <FAQPreview locale={locale} />
+      
       <FinalCTA locale={locale} />
     </>
   );

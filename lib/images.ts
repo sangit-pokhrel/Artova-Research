@@ -20,8 +20,12 @@ export const images = {
     literatureReview:
       "/images/services/literature-review.jpg",
 
-    methodology:
-      "/images/services/other-academic-areas.jpg",
+ 
+
+  methodology:
+    "/images/how-it-works/plan-the-research.jpg",
+
+  
 
     dataAnalysis:
       "/images/services/data-analysis.jpg",
@@ -125,6 +129,21 @@ export const images = {
       "/images/trustpilot/trustpilot-logo-white.png",
   },
 
+guidelines: {
+  tribhuvanUniversity: "/images/guidelines/tribhuvan-university.jpg",
+kathmanduUniversity:
+  "/images/guidelines/ktm-university.png",
+    pokharaUniversity: "/images/guidelines/pokhara-university.jpg",
+  purbanchalUniversity: "/images/guidelines/purbanchal-university.jpg",
+  midWesternUniversity: "/images/guidelines/mid-western-university.jpg",
+  farWesternUniversity: "/images/guidelines/far-western-university.jpg",
+  agricultureForestryUniversity:
+    "/images/guidelines/agriculture-forestry-university.jpg",
+  nepalSanskritUniversity:
+    "/images/guidelines/nepal-sanskrit-university.jpg",
+  bpKoiralaInstitute:
+    "/images/guidelines/bpkoiralla-institute.jpg",
+},
   contact: {
     hero:
       "/images/contact/contact-hero.png",

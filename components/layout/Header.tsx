@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
@@ -15,7 +15,6 @@ const navigation = [
   { key: "home", path: "" },
   { key: "about", path: "about" },
   { key: "services", path: "services" },
-  { key: "subjects", path: "subjects" },
 ] as const;
 
 export default function Header() {
@@ -32,6 +31,10 @@ export default function Header() {
   const t = translations[locale];
 
   const homeHref = `/${locale}`;
+
+  /* =========================================================
+     CLOSE MENUS
+     ========================================================= */
 
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -87,10 +90,6 @@ export default function Header() {
   const handleLogoClick = () => {
     closeMenu();
 
-    /*
-     * If already on the home page, simply return
-     * to the very top instead of navigating again.
-     */
     if (pathname === homeHref) {
       window.scrollTo({
         top: 0,
@@ -113,39 +112,14 @@ export default function Header() {
 
   /* =========================================================
      EXPLORE ITEMS
+     
+     Only Resources + Subjects.
+     
+     FAQ is on the Home page.
+     Research is not part of Explore.
      ========================================================= */
 
   const exploreItems = [
-    {
-      label: locale === "en" ? "Research" : "अनुसन्धान",
-      description:
-        locale === "en"
-          ? "Our research approach"
-          : "हाम्रो अनुसन्धान दृष्टिकोण",
-      href: `/${locale}/research`,
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          className="h-5 w-5"
-          stroke="currentColor"
-          strokeWidth="1.7"
-        >
-          <circle cx="11" cy="11" r="6.5" />
-
-          <path
-            d="m16 16 4.5 4.5"
-            strokeLinecap="round"
-          />
-
-          <path
-            d="M8.5 11h5M11 8.5v5"
-            strokeLinecap="round"
-          />
-        </svg>
-      ),
-    },
-
     {
       label: locale === "en" ? "Resources" : "स्रोत सामग्री",
       description:
@@ -175,12 +149,12 @@ export default function Header() {
     },
 
     {
-      label: locale === "en" ? "FAQ" : "सामान्य प्रश्नहरू",
+      label: locale === "en" ? "Subjects" : "विषय क्षेत्रहरू",
       description:
         locale === "en"
-          ? "Common questions answered"
-          : "सामान्य प्रश्नहरूको उत्तर",
-      href: `/${locale}/faq`,
+          ? "Explore academic subject areas"
+          : "शैक्षिक विषय क्षेत्रहरू हेर्नुहोस्",
+      href: `/${locale}/subjects`,
       icon: (
         <svg
           viewBox="0 0 24 24"
@@ -189,17 +163,19 @@ export default function Header() {
           stroke="currentColor"
           strokeWidth="1.7"
         >
-          <circle cx="12" cy="12" r="8.5" />
+          <path
+            d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 1 4 16.5v-11Z"
+            strokeLinejoin="round"
+          />
 
           <path
-            d="M9.8 9.3a2.5 2.5 0 1 1 4.3 1.8c-.8.8-2.1 1.2-2.1 2.7"
+            d="M4 6h12M8 10h8M8 14h5"
             strokeLinecap="round"
           />
 
           <path
-            d="M12 16.7h.01"
+            d="M17 3v16"
             strokeLinecap="round"
-            strokeWidth="2.5"
           />
         </svg>
       ),
@@ -209,10 +185,9 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 px-2.5 pt-2.5 sm:px-4 sm:pt-3 lg:px-6">
       <div className="mx-auto max-w-7xl">
-
-        {/* =======================================================
+        {/* =====================================================
             GLASS NAVBAR
-            ======================================================= */}
+            ===================================================== */}
 
         <div
           className={`
@@ -230,21 +205,20 @@ export default function Header() {
             ${
               isScrolled
                 ? `
-                  border-white/10
-                  bg-background/5
-                  shadow-[0_8px_25px_rgba(15,23,42,0.02)]
-                  backdrop-blur-md
-                `
+                    border-white/10
+                    bg-background/5
+                    shadow-[0_8px_25px_rgba(15,23,42,0.02)]
+                    backdrop-blur-md
+                  `
                 : `
-                  border-white/30
-                  bg-background/45
-                  shadow-[0_8px_25px_rgba(15,23,42,0.04)]
-                  backdrop-blur-2xl
-                `
+                    border-white/30
+                    bg-background/45
+                    shadow-[0_8px_25px_rgba(15,23,42,0.04)]
+                    backdrop-blur-2xl
+                  `
             }
           `}
         >
-
           {/* =====================================================
               SUBTLE TOP HIGHLIGHT
               ===================================================== */}
@@ -280,7 +254,6 @@ export default function Header() {
               md:grid-cols-[1fr_auto_1fr]
             "
           >
-
             {/* ===================================================
                 LOGO — LEFT
                 =================================================== */}
@@ -380,7 +353,7 @@ export default function Header() {
             </Link>
 
             {/* ===================================================
-                DESKTOP NAVIGATION — CENTER
+                DESKTOP NAVIGATION
                 =================================================== */}
 
             <nav
@@ -392,8 +365,12 @@ export default function Header() {
                 md:flex
               "
             >
+              {/* HOME / ABOUT / SERVICES */}
+
               {navigation.map((item) => {
-                const href = `/${locale}${item.path ? `/${item.path}` : ""}`;
+                const href = `/${locale}${
+                  item.path ? `/${item.path}` : ""
+                }`;
 
                 const active = isActive(item.path);
 
@@ -462,7 +439,7 @@ export default function Header() {
                     group
                     flex
                     items-center
-                    gap-1.5 sm:gap-2
+                    gap-1.5
                     rounded-xl
                     px-4
                     py-2.5
@@ -470,6 +447,7 @@ export default function Header() {
                     font-semibold
                     transition-all
                     duration-300
+                    sm:gap-2
 
                     ${
                       isExploreOpen
@@ -478,9 +456,7 @@ export default function Header() {
                     }
                   `}
                 >
-                  {locale === "en"
-                    ? "Explore"
-                    : "अन्वेषण"}
+                  {locale === "en" ? "Explore" : "अन्वेषण"}
 
                   <svg
                     viewBox="0 0 20 20"
@@ -490,7 +466,6 @@ export default function Header() {
                       w-4
                       transition-transform
                       duration-300
-
                       ${
                         isExploreOpen
                           ? "rotate-180"
@@ -510,140 +485,185 @@ export default function Header() {
 
                 {/* =================================================
                     EXPLORE DROPDOWN
+
+                    No fade animation.
+                    It simply appears/disappears.
                     ================================================= */}
 
-                <div
-                  className={`
-                    absolute
-                    right-0
-                    top-[calc(100%+14px)]
-                    w-[310px]
-                    origin-top-right
-                    transition-all
-                    duration-200
-
-                    ${
-                      isExploreOpen
-                        ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
-                        : "pointer-events-none -translate-y-2 scale-95 opacity-0"
-                    }
-                  `}
-                >
+                {isExploreOpen && (
                   <div
                     className="
-                      overflow-hidden
-                      rounded-2xl
-                      border
-                      border-border
-                      bg-surface-elevated
-                      p-2
-                      shadow-[var(--shadow-lg)]
+                      absolute
+                      right-0
+                      top-[calc(100%+14px)]
+                      w-[310px]
                     "
                   >
                     <div
                       className="
-                        px-4
-                        pb-2
-                        pt-3
+                        overflow-hidden
+                        rounded-2xl
+                        border
+                        border-border
+                        bg-surface-elevated
+                        p-2
+                        shadow-[var(--shadow-lg)]
                       "
                     >
-                      <p
+                      <div
                         className="
-                          text-[10px]
-                          font-bold
-                          uppercase
-                          tracking-[0.22em]
-                          text-accent
+                          px-4
+                          pb-2
+                          pt-3
                         "
                       >
-                        {locale === "en"
-                          ? "Explore Artova"
-                          : "Artova अन्वेषण गर्नुहोस्"}
-                      </p>
-                    </div>
-
-                    <div className="space-y-1">
-                      {exploreItems.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={closeMenu}
+                        <p
                           className="
-                            group
-                            flex
-                            items-center
-                            gap-4
-                            rounded-xl
-                            px-4
-                            py-3
-                            transition-all
-                            duration-200
-                            hover:bg-accent-soft
+                            text-[10px]
+                            font-bold
+                            uppercase
+                            tracking-[0.22em]
+                            text-accent
                           "
                         >
-                          <span
+                          {locale === "en"
+                            ? "Explore Artova"
+                            : "Artova अन्वेषण गर्नुहोस्"}
+                        </p>
+                      </div>
+
+                      <div className="space-y-1">
+                        {exploreItems.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={closeMenu}
                             className="
+                              group
                               flex
-                              h-10
-                              w-10
-                              shrink-0
                               items-center
-                              justify-center
+                              gap-4
                               rounded-xl
-                              bg-accent-soft
-                              text-accent
+                              px-4
+                              py-3
                               transition-all
                               duration-200
-                              group-hover:bg-accent
-                              group-hover:text-primary
+                              hover:bg-accent-soft
                             "
                           >
-                            {item.icon}
-                          </span>
-
-                          <span className="min-w-0">
                             <span
                               className="
-                                block
-                                text-sm
-                                font-bold
-                                text-foreground
+                                flex
+                                h-10
+                                w-10
+                                shrink-0
+                                items-center
+                                justify-center
+                                rounded-xl
+                                bg-accent-soft
+                                text-accent
+                                transition-all
+                                duration-200
+                                group-hover:bg-accent
+                                group-hover:text-primary
                               "
                             >
-                              {item.label}
+                              {item.icon}
+                            </span>
+
+                            <span className="min-w-0">
+                              <span
+                                className="
+                                  block
+                                  text-sm
+                                  font-bold
+                                  text-foreground
+                                "
+                              >
+                                {item.label}
+                              </span>
+
+                              <span
+                                className="
+                                  mt-0.5
+                                  block
+                                  text-xs
+                                  text-muted
+                                "
+                              >
+                                {item.description}
+                              </span>
                             </span>
 
                             <span
                               className="
-                                mt-0.5
-                                block
-                                text-xs
-                                text-muted
+                                ml-auto
+                                text-accent
+                                opacity-0
+                                transition-all
+                                duration-200
+                                group-hover:translate-x-1
+                                group-hover:opacity-100
                               "
                             >
-                              {item.description}
+                              →
                             </span>
-                          </span>
-
-                          <span
-                            className="
-                              ml-auto
-                              text-accent
-                              opacity-0
-                              transition-all
-                              duration-200
-                              group-hover:translate-x-1
-                              group-hover:opacity-100
-                            "
-                          >
-                            →
-                          </span>
-                        </Link>
-                      ))}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
+
+              {/* =================================================
+                  GUIDELINES
+                  ================================================= */}
+
+              <Link
+                href={`/${locale}/guidelines`}
+                className={`
+                  group
+                  relative
+                  rounded-xl
+                  px-4
+                  py-2.5
+                  text-sm
+                  font-semibold
+                  transition-all
+                  duration-300
+
+                  ${
+                    isActive("guidelines")
+                      ? "text-accent"
+                      : "text-foreground hover:bg-foreground/5 hover:text-foreground"
+                  }
+                `}
+              >
+                {locale === "en"
+                  ? "Guidelines"
+                  : "निर्देशनहरू"}
+
+                <span
+                  className={`
+                    absolute
+                    bottom-1
+                    left-1/2
+                    h-0.5
+                    -translate-x-1/2
+                    rounded-full
+                    bg-accent
+                    transition-all
+                    duration-300
+
+                    ${
+                      isActive("guidelines")
+                        ? "w-5"
+                        : "w-0 group-hover:w-5"
+                    }
+                  `}
+                />
+              </Link>
             </nav>
 
             {/* ===================================================
@@ -754,14 +774,18 @@ export default function Header() {
 
               ${
                 isMenuOpen
-                  ? "max-h-[600px] border-t border-border opacity-100"
+                  ? "max-h-[700px] border-t border-border opacity-100"
                   : "max-h-0 opacity-0"
               }
             `}
           >
             <nav className="space-y-1 py-3 sm:py-4">
+              {/* HOME / ABOUT / SERVICES */}
+
               {navigation.map((item) => {
-                const href = `/${locale}${item.path ? `/${item.path}` : ""}`;
+                const href = `/${locale}${
+                  item.path ? `/${item.path}` : ""
+                }`;
 
                 const active = isActive(item.path);
 
@@ -777,11 +801,11 @@ export default function Header() {
                       rounded-xl
                       px-3
                       py-3
-                      sm:px-4
-                      sm:py-3.5
                       text-sm
                       font-semibold
                       transition-all
+                      sm:px-4
+                      sm:py-3.5
 
                       ${
                         active
@@ -848,7 +872,6 @@ export default function Header() {
                     text-accent
                     transition-transform
                     duration-300
-
                     ${
                       isMobileExploreOpen
                         ? "rotate-180"
@@ -904,6 +927,51 @@ export default function Header() {
                   ))}
                 </div>
               )}
+
+              {/* =================================================
+                  GUIDELINES
+                  ================================================= */}
+
+              <Link
+                href={`/${locale}/guidelines`}
+                onClick={closeMenu}
+                className={`
+                  flex
+                  items-center
+                  justify-between
+                  rounded-xl
+                  px-3
+                  py-3
+                  text-sm
+                  font-semibold
+                  transition-all
+                  sm:px-4
+                  sm:py-3.5
+
+                  ${
+                    isActive("guidelines")
+                      ? "bg-accent-soft text-accent"
+                      : "text-foreground/80 hover:bg-foreground/5"
+                  }
+                `}
+              >
+                <span>
+                  {locale === "en"
+                    ? "Guidelines"
+                    : "निर्देशनहरू"}
+                </span>
+
+                {isActive("guidelines") && (
+                  <span
+                    className="
+                      h-1.5
+                      w-1.5
+                      rounded-full
+                      bg-accent
+                    "
+                  />
+                )}
+              </Link>
 
               {/* =================================================
                   MOBILE CONTACT
